@@ -10,6 +10,7 @@ import LandingImage from "../../assets/landing-image.png"
 import Register from '../../components/register/Register'
 
 export default function Landing() {
+<<<<<<< HEAD
 
    return (
       <>
@@ -27,4 +28,23 @@ export default function Landing() {
          </div>
       </>
    )
+=======
+  return (
+    <>
+      <div className='landing'>
+        <div className='landing__navbar'>
+          <Logo />
+          <div className='landing__navbar__link'>
+            <a>Sign in</a>
+            <a>Register</a>
+          </div>
+        </div>
+        <div className='landing__container'>
+          <img />
+          <div className='landing__form'></div>
+        </div>
+      </div>
+    </>
+  )
+>>>>>>> 753695b ([Landing] Added navigation bar)
 }

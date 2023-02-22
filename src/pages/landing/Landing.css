@@ -1,0 +1,11 @@
+.landing__navbar {
+  @apply flex items-center justify-between w-screen px-20 my-10;
+}
+
+.landing__navbar__link {
+  @apply flex space-x-5;
+}
+
+.landing__navbar__link > a {
+  @apply text-white text-lg;
+}

@@ -4,5 +4,5 @@
 }
 
 .logo {
-  @apply max-w-sm mx-auto flex space-x-3 items-center;
+  @apply max-w-sm flex space-x-3 items-center;
 }
