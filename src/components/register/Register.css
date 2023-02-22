@@ -1,3 +1,19 @@
 .register > input {
-   @apply block bg-violet bg-opacity-20;
+   @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 px-10 font-medium rounded-lg text-white;
+}
+
+.register > input:focus {
+   @apply outline-none border-2 border-purple border-opacity-40;
+}
+
+.register__button {
+   @apply block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 w-full h-16 mb-4 font-medium rounded-lg text-white focus:outline-none;
+}
+
+.register__text-continue {
+   @apply text-white;
+}
+
+.register__button-continue {
+   @apply bg-black-200 border-white w-full h-16 font-medium text-white focus:outline-none hover:border-purple focus:border-purple;
 }
