@@ -3,24 +3,28 @@ import React from 'react'
 // styles
 import './Landing.css'
 
+// assets
+import LandingImage from "../../assets/landing-image.png"
+
 // components
 import Register from '../../components/register/Register'
-import Logo from '../../components/logo/Logo'
 
 export default function Landing() {
-  return (
-    <>
-      <div className='landing'>
-        <div className='landing__navbar'>
-          <Logo />
-        </div>
-        <div className='landing__container'>
-          <img />
-          <div className='landing__form'>
-            <Register />
-          </div>
-        </div>
-      </div>
-    </>
-  )
+
+   return (
+      <>
+         <div className="landing">
+            <div className='landing__navbar text-white mb-20 flex justify-end gap-8 font-semibold pr-8'>
+               <span>Sign In</span>
+               <span>Register</span>
+            </div>
+            <div className="landing__container flex gap-40">
+               <img className="landing__image h-[28rem] mb-10" src={LandingImage} />
+               <div className="landing__form">
+                  <Register />
+               </div>
+            </div>
+         </div>
+      </>
+   )
 }

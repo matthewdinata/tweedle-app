@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+.app {
+  @apply bg-black-200 font-inter;
+}
+
+body {
+  @apply bg-black-200 font-inter;
+  color: #1E1E1E;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
