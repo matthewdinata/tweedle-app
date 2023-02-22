@@ -1,5 +1,12 @@
 import React from 'react'
+
+// styles
 import './Register.css'
+
+// components
+
+// assets
+import { FcGoogle } from "react-icons/fc"
 
 export default function Register() {
 
@@ -18,7 +25,7 @@ export default function Register() {
         or continue with
         <div className="continue-google__line h-px bg-white w-20"></div>
       </div>
-      <button className="register__button-continue">Sign in with Google</button>
+      <button className="register__button-continue flex items-center justify-center gap-3 font-medium"><FcGoogle className="h-6 w-auto"/>Sign in with Google</button>
     </form>
   )
 }

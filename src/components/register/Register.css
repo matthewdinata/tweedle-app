@@ -7,5 +7,5 @@
 }
 
 .register__button-continue {
-   @apply bg-black-200 border-white w-full h-16;
+   @apply bg-black-200 border-white w-full h-16 font-medium;
 }
