@@ -12,6 +12,7 @@ module.exports = {
       violet: '#8B7AD6',
       purple: '#AF67E6',
       teal: '#418CAE',
+      white: '#FFFFFF',
     },
     extend: {
       fontFamily: {

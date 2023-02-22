@@ -12,6 +12,7 @@ export default function Register() {
       <input type="email" placeholder="Enter email address" />
       <input type="password" placeholder="Enter password" />
       <input type="text" placeholder="Enter username" /> {/* yup validation */}
+      <button className="register__button">Register</button>
     </form>
   )
 }
