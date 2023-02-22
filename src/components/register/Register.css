@@ -1,7 +1,11 @@
 .register > input {
-   @apply block bg-violet bg-opacity-20 w-96 h-16 placeholder-white placeholder-opacity-50 mb-6 pl-10 font-medium rounded-lg;
+   @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 pl-10 font-medium rounded-lg;
 }
 
 .register__button {
-   @apply block bg-purple w-96 h-16 mb-5 font-medium rounded-lg;
+   @apply block bg-purple w-full h-16 mb-4 font-medium rounded-lg;
+}
+
+.register__button-continue {
+   @apply bg-black-200 border-white w-full h-16;
 }
