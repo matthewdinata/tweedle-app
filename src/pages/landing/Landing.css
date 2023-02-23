@@ -1,11 +1,27 @@
+.landing {
+  @apply px-28;
+}
+
 .landing__navbar {
-  @apply flex items-center justify-between w-screen px-20 my-10;
+  @apply flex items-center justify-between mt-16;
 }
 
 .landing__navbar__link {
-  @apply flex space-x-5;
+  @apply flex space-x-10;
 }
 
 .landing__navbar__link > a {
-  @apply text-white text-lg;
+  @apply text-white text-lg font-medium;
+}
+
+.landing__navbar__link .link-active {
+  @apply text-purple underline underline-offset-1;
+}
+
+.landing__container {
+  @apply mt-10 grid grid-cols-2 gap-5;
+}
+
+.landing__container > img {
+  @apply flex items-center w-96 justify-center;
 }
