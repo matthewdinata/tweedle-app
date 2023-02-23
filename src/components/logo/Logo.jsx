@@ -5,7 +5,7 @@ import './Logo.css'
 export default function Logo() {
   return (
     <>
-      <div className='logo'>
+      <div className='flex space-x-3 items-center'>
         <img className='w-9 h-9' src={tweedleLogo}></img>
         <h1 className='logo__title'>Tweedle</h1>
       </div>
