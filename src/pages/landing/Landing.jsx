@@ -13,12 +13,12 @@ export default function Landing() {
 
    return (
       <>
-         <div className="landing">
-            <div className='landing__navbar text-white mb-20 flex justify-end gap-8 font-semibold pr-8'>
+         <div className="landing w-[960px] m-auto">
+            <div className='landing__navbar text-white mb-20 flex justify-end gap-8 font-semibold pr-8 pt-24'>
                <span>Sign In</span>
                <span>Register</span>
             </div>
-            <div className="landing__container flex gap-40">
+            <div className="landing__container flex justify-between">
                <img className="landing__image h-[28rem] mb-10" src={LandingImage} />
                <div className="landing__form">
                   <Register />

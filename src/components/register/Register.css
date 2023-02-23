@@ -3,17 +3,17 @@
 }
 
 .register > input:focus {
-   @apply outline-none border-2 border-purple border-opacity-40;
+   @apply outline-none border-2 border-purple border-opacity-40 transition-all ease-in-out duration-500;
 }
 
 .register__button {
-   @apply block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 w-full h-16 mb-4 font-medium rounded-lg text-white focus:outline-none;
+   @apply block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 w-full h-16 mb-4 font-medium rounded-lg text-white focus:outline-none transition-all ease-in-out duration-500;
 }
 
 .register__text-continue {
-   @apply text-white;
+   @apply text-white mt-5;
 }
 
 .register__button-continue {
-   @apply bg-black-200 border-white w-full h-16 font-medium text-white focus:outline-none hover:border-purple focus:border-purple;
+   @apply bg-black-200 border-white border-[1px] w-full h-16 font-medium text-white focus:outline-none hover:border-purple focus:border-purple flex items-center justify-center gap-4 rounded-lg mt-5 transition-all ease-in-out duration-500;
 }
