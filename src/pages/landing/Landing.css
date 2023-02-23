@@ -1,9 +1,5 @@
-.landing {
-  @apply px-28;
-}
-
 .landing__navbar {
-  @apply flex items-center justify-between mt-16;
+  @apply flex items-center justify-between text-white mb-20 gap-8 font-semibold pr-8 pt-24;
 }
 
 .landing__navbar__link {
@@ -11,17 +7,9 @@
 }
 
 .landing__navbar__link > a {
-  @apply text-white text-lg font-medium;
+  @apply text-white font-medium;
 }
 
-.landing__navbar__link .link-active {
-  @apply text-purple underline underline-offset-1;
-}
-
-.landing__container {
-  @apply mt-10 grid grid-cols-2 gap-5;
-}
-
-.landing__container > img {
-  @apply flex items-center w-96 justify-center;
+.landing__navbar__link .link--active {
+  @apply text-purple underline underline-offset-8;
 }
