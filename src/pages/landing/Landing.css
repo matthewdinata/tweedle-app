@@ -1,0 +1,15 @@
+.landing__navbar {
+  @apply flex items-center justify-between text-white mb-20 gap-8 font-semibold pr-8 pt-24;
+}
+
+.landing__navbar__link {
+  @apply flex space-x-10;
+}
+
+.landing__navbar__link > a {
+  @apply text-white font-medium;
+}
+
+.landing__navbar__link .link--active {
+  @apply text-purple underline underline-offset-8;
+}

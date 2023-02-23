@@ -2,3 +2,7 @@
   @apply font-semibold bg-clip-text bg-gradient-to-br from-red via-violet to-teal text-[1.8rem];
   color: transparent;
 }
+
+.logo {
+  @apply max-w-sm flex space-x-3 items-center;
+}

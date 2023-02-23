@@ -4,27 +4,31 @@ import React from 'react'
 import './Landing.css'
 
 // assets
-import LandingImage from "../../assets/landing-image.png"
+import LandingImage from '../../assets/landing-image.png'
 
 // components
 import Register from '../../components/register/Register'
+import Logo from '../../components/logo/Logo'
+import SignIn from '../../components/signIn/SignIn'
 
 export default function Landing() {
-
-   return (
-      <>
-         <div className="landing w-[960px] m-auto">
-            <div className='landing__navbar text-white mb-20 flex justify-end gap-8 font-semibold pr-8 pt-24'>
-               <span>Sign In</span>
-               <span>Register</span>
-            </div>
-            <div className="landing__container flex justify-between">
-               <img className="landing__image h-[28rem] mb-10" src={LandingImage} />
-               <div className="landing__form">
-                  <Register />
-               </div>
-            </div>
-         </div>
-      </>
-   )
+  return (
+    <>
+      <div className='landing w-[960px] m-auto'>
+        <div className='landing__navbar'>
+          <Logo />
+          <div className='landing__navbar__link'>
+            <a className='link--active'>Sign in</a>
+            <a>Register</a>
+          </div>
+        </div>
+        <div className='landing__container flex justify-between items-center'>
+          <img className='landing__image h-[28rem]' src={LandingImage} />
+          <div className='landing__form py-auto'>
+            <Register />
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
