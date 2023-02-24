@@ -1,10 +1,15 @@
 import './App.css'
+
+// components
 import Landing from './pages/landing/Landing'
+import Home from './pages/home/Home'
 
 
 function App() {
   return (
-    <Landing/>
+    <div className="app">
+      <Home/>
+    </div>
   )
 }
 
