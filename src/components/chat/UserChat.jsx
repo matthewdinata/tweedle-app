@@ -15,7 +15,7 @@ export default function UserChat() {
           </p>
         </div>
       </div>
-      <hr className='mt-5 h-[1.5px] bg-white border-0 opacity-20'></hr>
+      <hr className='mt-5 h-px bg-white border-0 opacity-10'></hr>
     </div>
   )
 }
