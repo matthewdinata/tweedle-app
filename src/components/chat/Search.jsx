@@ -10,7 +10,11 @@ export default function Search() {
             <FiSearch color='#FFFFFF' size={'1.5rem'} className='opacity-50' />
           </span>
         </label>
-        <input type='text' placeholder='Search chats..' className='pl-16' />
+        <input
+          type='text'
+          placeholder='Search chats..'
+          className='pl-16 font-normal'
+        />
       </div>
       <div className=''></div>
     </div>
