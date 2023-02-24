@@ -1,8 +1,8 @@
 .app {
-  @apply bg-black-200 font-inter;
+  @apply bg-black-200 font-inter text-white;
 }
 
 body {
-  @apply bg-black-200 font-inter;
+  @apply bg-black-200 font-inter text-white;
   color: #1e1e1e;
 }

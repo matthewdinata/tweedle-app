@@ -3,6 +3,7 @@ import './App.css'
 
 // components
 import Landing from './pages/landing/Landing'
+<<<<<<< HEAD
 import Chat from './pages/chat/Chat'
 import Home from './pages/home/Home'
 
@@ -14,6 +15,9 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom'
+=======
+import Home from './pages/home/Home'
+>>>>>>> b00d1f5 ([Home] Set up components for page)
 
 // hooks
 import { useUser } from './hooks/useUser'
@@ -35,6 +39,7 @@ function App() {
   }
 
   return (
+<<<<<<< HEAD
     <Router>
       <Routes>
         <Route
@@ -56,6 +61,11 @@ function App() {
         />
       </Routes>
     </Router>
+=======
+    <div className="app">
+      <Home/>
+    </div>
+>>>>>>> b00d1f5 ([Home] Set up components for page)
   )
 }
 

@@ -1,12 +1,23 @@
 import React from 'react'
 
+// styles 
+import "./Home.css"
+
 // hooks
 import { useUser } from '../../hooks/useUser'
+
+// components
+import Posts from '../../components/posts/Posts'
+import PostInput from '../../components/postInput/PostInput'
 
 export default function Home() {
   const { currentUser, logout } = useUser()
   return (
-    <div className>
+    <div className="home">
+      <div className="home__container flex flex-col items-center justify-center">
+         <Posts />
+         <PostInput />
+      </div>
       <h1 className='text-white'>{currentUser.uid}</h1>
       <button
         onClick={logout}
