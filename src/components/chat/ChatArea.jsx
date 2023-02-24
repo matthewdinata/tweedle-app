@@ -1,5 +1,6 @@
 import React from 'react'
 import ChatBoxNonUser from './ChatBoxNonUser'
+import ChatBoxUser from './ChatBoxUser'
 
 export default function ChatArea() {
   return (
@@ -15,7 +16,9 @@ export default function ChatArea() {
         </div>
       </div>
       <ChatBoxNonUser />
+      <ChatBoxUser message='Reference site about Lorem Ipsum, in giving information on its origins, as well as a random Lipsum generator.' />
       <ChatBoxNonUser />
+      <ChatBoxUser message='Hi!' />
     </div>
   )
 }
