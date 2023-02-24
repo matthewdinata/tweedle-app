@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ChatBoxNonUser() {
   return (
-    <div className='flex items-start max-w-xs'>
+    <div className='flex items-start max-w-md'>
       <div className='flex flex-col items-center gap-y-1 px-8'>
         <img
           src='https://randomuser.me/api/portraits/women/81.jpg'

@@ -8,7 +8,7 @@ export default function Chat() {
   return (
     <div className='flex'>
       <Sidebar />
-      <div className='flex-1 flex mx-32 my-10'>
+      <div className='flex-1 flex px-32 py-10 h-screen'>
         <Sidechat />
         <ChatArea />
       </div>
