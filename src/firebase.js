@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 
 // Your web app's Firebase configuration
@@ -13,19 +13,20 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 
-export const auth = getAuth(app)
-
-const googleProvider = new GoogleAuthProvider();
-
-// Google Auth sign in function
-export const signInWithGoogle = () => {
-   signInWithPopup(auth, googleProvider)
-      .then((res) => {
-         console.log(res);
-      })
-      . catch((err) => {
-         console.log(err);
-      });
+// Google Auth Provider
+export const GoogleProvider = new GoogleAuthProvider()
+// Google Sign In Function
+export const googleSignIn = () => {
+   signInWithPopup(auth, GoogleProvider)
+   .then((res) => {
+      const name = res.user.displayName;
+      const email = res.user.email;
+      const profilePic = res.user.photoURL;
+   })
+   .catch((err) => {
+      console.log(err);
+   })
 };
