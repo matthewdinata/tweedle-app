@@ -1,4 +1,9 @@
+// services
 import React, { useState } from 'react'
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; 
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 // styles
 import './Register.css'
@@ -7,20 +12,22 @@ import './Register.css'
 import { FcGoogle } from 'react-icons/fc'
 
 // components
-import { auth, db, GoogleProvider } from '../../firebase'
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"; 
-
+import { auth, db, GoogleProvider } from '../../firebase';
+import { userSchema } from '../../utils/UserValidation';
 
 export default function Register() {  
   const [error, setError] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const email = e.target[0].value
-    const password = e.target[1].value
-    const username = e.target[2].value
+    let formData = {
+      email: e.target[0].value,
+      password: e.target[1].value,
+      confirmPassword: e.target[2].value,
+      username: e.target[3].value
+    };
+    const isValid = await userSchema.isValid(formData);
+    console.log(isValid);
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -50,10 +57,15 @@ export default function Register() {
 
   return (
     <form className='register' onSubmit={handleSubmit}>
-      <input type='email' placeholder='Enter email address' />
-      <input type='password' placeholder='Enter password' />
-      <input type='text' placeholder='Enter username' /> {/* yup validation */}
+
+      {/* register with Email/Password */}
+      <input type='email' name='email' placeholder='Enter email address' />
+      <input type='password' name='password' placeholder='Enter password' />
+      <input type='password' name='confirmPassword' placeholder='Confirm password' />
+      <input type='text' name='username' placeholder='Enter username' />
       <button className='register__button'>Register</button>
+
+      {/* continue with Google option */}
       <div className='register__text-continue font-medium flex justify-between items-center mb-4'>
         <div className='continue-google__line h-px bg-white w-20'></div>
         or continue with
@@ -63,6 +75,7 @@ export default function Register() {
         <FcGoogle className='h-6 w-auto' />
         Register with Google
       </button>
+
     </form>
   )
 }
