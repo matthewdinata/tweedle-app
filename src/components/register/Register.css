@@ -1,5 +1,5 @@
 .register__container {
-   @apply mb-8;
+   @apply mb-7;
 }
 
 .register__container--invalid > input {
@@ -7,7 +7,7 @@
 }
 
 .register__container > input {
-  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 px-10 font-medium rounded-lg text-white;
+  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 px-10 font-normal rounded-lg text-white;
 }
 
 .register__container > input:focus {
@@ -15,7 +15,7 @@
 }
 
 .register__invalid-message {
-   @apply text-xs text-red absolute mt-[0.3rem]
+   @apply text-xs text-red absolute mt-[0.2rem]
 }
 
 .register__button {
