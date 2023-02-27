@@ -1,21 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+// styles
 import './Register.css'
 
 // assets
 import { FcGoogle } from 'react-icons/fc'
 
 // components
-import { googleSignIn } from '../../firebase'
+import { auth, db, GoogleProvider } from '../../firebase'
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 export default function Register() {  
+  const [error, setError] = useState(false)
 
-  const handleClick = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    googleSignIn();
+
+    const email = e.target[0].value
+    const password = e.target[1].value
+    const username = e.target[2].value
+
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        email,
+        username,
+      }); 
+    } 
+    catch (error) {
+      setError(true)
+      console.log(error.message)
+    }
+  }
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await signInWithPopup(auth, GoogleProvider);
+    }
+    catch (error) {
+      setError(true)
+      console.log(error.message)
+    }
   }
 
   return (
-    <form className='register'>
+    <form className='register' onSubmit={handleSubmit}>
       <input type='email' placeholder='Enter email address' />
       <input type='password' placeholder='Enter password' />
       <input type='text' placeholder='Enter username' /> {/* yup validation */}
