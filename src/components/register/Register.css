@@ -15,7 +15,7 @@
 }
 
 .register__invalid-message {
-   @apply text-xs text-red absolute mt-[0.2rem]
+   @apply text-xs text-red absolute mt-[0.2rem] w-80;
 }
 
 .register__button {

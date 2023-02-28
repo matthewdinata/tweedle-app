@@ -1,7 +1,7 @@
 // services
 import React, { useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, query, getDocs, collection, where } from "firebase/firestore"; 
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 
@@ -16,7 +16,7 @@ import { auth, db, GoogleProvider } from '../../firebase';
 import { userSchema } from '../../utils/UserValidation';
 
 export default function Register() {  
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
   const [processing, setProcessing] = useState(false)
 
   // integrate React-Hook-Form with Yup validation
@@ -35,12 +35,12 @@ export default function Register() {
         email: userData.email,
         username: userData.username,
         displayName: userData.username,
-        profilePic: undefined,
+        profilePic: null,
       }); 
     }
     catch (error) {
       setProcessing(false)
-      setError(true)
+      setError(error)
       console.log(error.message)
     }
     setProcessing(false)
@@ -53,17 +53,34 @@ export default function Register() {
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
       console.log(res)
+
+      let proposedUsername = res.user.email.split("@")[0];
+      let usernameFlag = true;
+
+      while (usernameFlag) {
+        usernameFlag = false;
+        const q = query(
+          collection(db, "users"), 
+          where("username", "==", proposedUsername)
+        )
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(() => {
+          usernameFlag = true;
+          proposedUsername = proposedUsername + Math.floor(Math.random() * 100);
+        }); 
+      }
+
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         email: res.user.email,
-        username: res.user.username,
+        username: proposedUsername,
         displayName: res.user.displayName,
         profilePic: res.user.photoURL,
       }); 
     }
     catch (error) {
       setProcessing(false)
-      setError(true)
+      setError(error)
       console.log(error.message)
     }
     setProcessing(false)
@@ -94,7 +111,7 @@ export default function Register() {
         <span className="register__invalid-message">{errors.username?.message}</span>
       </div>
       
-      <button className='register__button'>Register</button>
+      <button className={`register__button ${processing ? "cursor-not-allowed" : ""}`}>Register</button>
 
 
       {/* continue with Google option */}
@@ -104,10 +121,14 @@ export default function Register() {
         or continue with
         <div className='continue-google__line h-px bg-white w-20'></div>
       </div>
-      <button className='register__button-continue' onClick={handleClick}>
+    <button 
+      className={`register__button-continue ${processing ? "cursor-not-allowed" : ""}`} 
+      onClick={handleClick}>
         <FcGoogle className='h-6 w-auto' />
         Register with Google
-      </button>
+    </button>
+
+      { error && <span className='register__invalid-message text-red text-sm mt-2'>Something went wrong. {error.message}</span> }
 
     </form>
   )
