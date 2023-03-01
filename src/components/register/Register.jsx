@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
 
 // styles
 import './Register.css'
@@ -21,7 +22,6 @@ import { FcGoogle } from 'react-icons/fc'
 // components
 import { auth, db, GoogleProvider } from '../../firebase'
 import { userSchema } from '../../utils/UserValidation'
-import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
   const [error, setError] = useState(null)
