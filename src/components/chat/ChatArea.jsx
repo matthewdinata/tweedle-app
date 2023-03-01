@@ -1,6 +1,7 @@
 import React from 'react'
 import ChatBoxNonUser from './ChatBoxNonUser'
 import ChatBoxUser from './ChatBoxUser'
+import Input from './Input'
 
 export default function ChatArea() {
   return (
@@ -15,7 +16,7 @@ export default function ChatArea() {
           <p className='text-white text-sm'>@gabriellenicole</p>
         </div>
       </div>
-      <div className='flex flex-col gap-y-7 overflow-auto scrollbar-none py-5 mb-20 '>
+      <div className='flex flex-col gap-y-7 overflow-auto scrollbar-none py-5 mb-5 '>
         <ChatBoxNonUser />
         <ChatBoxUser message='Reference site about Lorem Ipsum, in giving information on its origins, as well as a random Lipsum generator.' />
         <ChatBoxNonUser />
@@ -25,6 +26,7 @@ export default function ChatArea() {
         <ChatBoxNonUser />
         <ChatBoxUser message='Hi!' />
       </div>
+      <Input />
     </div>
   )
 }
