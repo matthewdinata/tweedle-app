@@ -8,8 +8,6 @@ import Home from './pages/home/Home'
 
 // services
 import React, { useEffect } from 'react'
-import { auth } from './firebase'
-import { onAuthStateChanged } from 'firebase/auth'
 import {
   BrowserRouter as Router,
   Route,
@@ -17,36 +15,20 @@ import {
   Navigate,
 } from 'react-router-dom'
 
-// redux
-import { useDispatch, useSelector } from 'react-redux'
-import { login, logout, selectUser } from './features/userSlice'
+// hooks
+import { useUser } from './hooks/useUser'
 
 function App() {
-  const user = useSelector(selectUser)
-  const dispatch = useDispatch()
+  const { currentUser, login } = useUser()
 
   // check at page load if a user is authenticated
   useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        // user is logged in, send the user's details to redux, store the current user in the state
-        dispatch(
-          login({
-            email: userAuth.email,
-            uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            photoUrl: userAuth.photoURL,
-          })
-        )
-      } else {
-        dispatch(logout())
-      }
-    })
+    login()
   }, [])
 
   // protect Home route if user is null
   const ProtectedRoute = ({ children }) => {
-    if (!user) {
+    if (!currentUser) {
       return <Navigate to='/signin' />
     }
     return children
@@ -64,7 +46,14 @@ function App() {
           }
         />
         <Route path='/signin' element={<Landing />} />
-        <Route path='/chat' element={<Chat />} />
+        <Route
+          path='/chat'
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   )

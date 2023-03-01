@@ -69,22 +69,34 @@ export default function SignIn() {
         type='email'
         placeholder='Enter email address'
         {...register('email')}
+        className={errors.email ? 'input--invalid' : ''}
       />
       <input
         type='password'
         placeholder='Enter password'
         {...register('password')}
+        className={errors.password ? 'input--invalid' : ''}
       />
-      <button className='signin__button'>Sign In</button>
+      <button
+        className={`signin__button ${processing ? 'cursor-not-allowed' : ''}`}
+      >
+        Sign In
+      </button>
       <div className='signin__text-continue font-medium flex justify-between items-center mb-4'>
         <div className='continue-google__line h-px bg-white w-20'></div>
         or continue with
         <div className='continue-google__line h-px bg-white w-20'></div>
       </div>
-      <button onClick={handleClick} className='signin__button-continue'>
+      <button
+        onClick={handleClick}
+        className={`signin__button-continue ${
+          processing ? 'cursor-not-allowed' : ''
+        }`}
+      >
         <FcGoogle className='h-6 w-auto' />
         Sign in with Google
       </button>
+      {error && <span className='invalid-message'>{error.message}</span>}
     </form>
   )
 }
