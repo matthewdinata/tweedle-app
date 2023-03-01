@@ -12,11 +12,6 @@ export const userSchema = yup.object().shape({
       .required("You must enter a valid password."),
    confirmPassword:
       yup.string()
-      .oneOf([yup.ref("password"), null], "Passwords do not match."),
-   username: 
-      yup.string()
-      .min(4, "Username must be at least 4 characters.")
-      .max(30, "Username must be less than 30 characters.")
-      .required("You must enter a valid username.")
+      .oneOf([yup.ref("password"), null], "Passwords do not match.")
 });
 
