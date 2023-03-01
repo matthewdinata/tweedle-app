@@ -25,16 +25,37 @@ export default function Register() {
   });
   const { errors } = formState;
 
+  // check for username
+  const getUsername = async (email) => {
+    let proposedUsername = email.split("@")[0];
+    let usernameFlag = true;
+
+    while (usernameFlag) {
+      usernameFlag = false;
+      const q = query(
+        collection(db, "users"), 
+        where("username", "==", proposedUsername)
+      )
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(() => {
+        usernameFlag = true;
+        proposedUsername = proposedUsername + Math.floor(Math.random() * 100);
+      }); 
+    }
+    return proposedUsername;
+  }
+
   // Email/Password sign in method
   const onSubmit = async (userData) => {
     setProcessing(true)
     try {
-      const res = await createUserWithEmailAndPassword(auth, userData.email, userData.password)
+      const res = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
+      const validUsername = await getUsername(userData.email);
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         email: userData.email,
-        username: userData.username,
-        displayName: userData.username,
+        username: validUsername,
+        displayName: validUsername,
         profilePic: null,
       }); 
     }
@@ -52,28 +73,12 @@ export default function Register() {
     setProcessing(true)
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
-      console.log(res)
-
-      let proposedUsername = res.user.email.split("@")[0];
-      let usernameFlag = true;
-
-      while (usernameFlag) {
-        usernameFlag = false;
-        const q = query(
-          collection(db, "users"), 
-          where("username", "==", proposedUsername)
-        )
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach(() => {
-          usernameFlag = true;
-          proposedUsername = proposedUsername + Math.floor(Math.random() * 100);
-        }); 
-      }
+      const validUsername = await getUsername(res.user.email);
 
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
         email: res.user.email,
-        username: proposedUsername,
+        username: validUsername,
         displayName: res.user.displayName,
         profilePic: res.user.photoURL,
       }); 
@@ -104,11 +109,6 @@ export default function Register() {
       <div className={`register__container ${errors.confirmPassword ? 'register__container--invalid' : ''}`}>
         <input type='password' name='confirmPassword' placeholder='Confirm password' {...register('confirmPassword')} />
         <span className="register__invalid-message">{errors.confirmPassword?.message}</span>
-      </div>
-
-      <div className={`register__container ${errors.username ? 'register__container--invalid' : ''}`}>
-        <input type='text' name='username' placeholder='Enter username' {...register('username')} />
-        <span className="register__invalid-message">{errors.username?.message}</span>
       </div>
       
       <button className={`register__button ${processing ? "cursor-not-allowed" : ""}`}>Register</button>
