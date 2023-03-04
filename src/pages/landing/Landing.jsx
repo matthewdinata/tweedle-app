@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 // styles
-import './Landing.css'
+import './Landing.css';
 
 // assets
-import LandingImage from '../../assets/landing-image.png'
+import LandingImage from '../../assets/landing-image.png';
 
 // components
-import Register from '../../components/register/Register'
-import Logo from '../../components/logo/Logo'
-import SignIn from '../../components/signIn/SignIn'
+import Register from '../../components/register/Register';
+import Logo from '../../components/logo/Logo';
+import SignIn from '../../components/signIn/SignIn';
 
 export default function Landing() {
-  const [page, setPage] = useState('register')
+  const [page, setPage] = useState('register');
 
   return (
     <>
@@ -35,12 +35,15 @@ export default function Landing() {
           </div>
         </div>
         <div className='landing__container flex justify-between items-center'>
-          <img className='landing__image h-[28rem]' src={LandingImage} />
+          <img
+            className='landing__image h-[28rem]'
+            src={LandingImage}
+          />
           <div className='landing__form py-auto'>
             {page === 'register' ? <Register /> : <SignIn />}
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }

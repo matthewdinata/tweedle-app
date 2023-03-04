@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 // hooks
-import { useUser } from '../../hooks/useUser'
+import { useUser } from '../../hooks/useUser';
 
 export default function Home() {
-  const { currentUser, logout } = useUser()
+  const { currentUser, logout } = useUser();
   return (
     <div className>
       <h1 className='text-white'>{currentUser.uid}</h1>
@@ -15,5 +15,5 @@ export default function Home() {
         Logout
       </button>
     </div>
-  )
+  );
 }

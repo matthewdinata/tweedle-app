@@ -1,22 +1,22 @@
 // services
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import { auth, GoogleProvider } from '../../firebase'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth, GoogleProvider } from '../../firebase';
 
 // styles
-import './SignIn.css'
+import './SignIn.css';
 
 // assets
-import { FcGoogle } from 'react-icons/fc'
+import { FcGoogle } from 'react-icons/fc';
 
 export default function SignIn() {
-  const [error, setError] = useState(null)
-  const [processing, setProcessing] = useState(false)
-  const navigate = useNavigate()
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
 
   // yup schema
   const schema = yup
@@ -24,7 +24,7 @@ export default function SignIn() {
       email: yup.string().required(),
       password: yup.string().required(),
     })
-    .required()
+    .required();
 
   // integrating yup validation and react hook form
   const {
@@ -33,38 +33,41 @@ export default function SignIn() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  })
+  });
 
   const onSubmit = async (userData) => {
-    setProcessing(true)
+    setProcessing(true);
     try {
-      await signInWithEmailAndPassword(auth, userData.email, userData.password)
-      navigate('/')
+      await signInWithEmailAndPassword(auth, userData.email, userData.password);
+      navigate('/');
     } catch (error) {
-      setProcessing(false)
-      setError(error)
-      console.log(error.message)
+      setProcessing(false);
+      setError(error);
+      console.log(error.message);
     }
-    setProcessing(false)
-  }
+    setProcessing(false);
+  };
 
   // Google sign in method
   const handleClick = async (e) => {
-    e.preventDefault()
-    setProcessing(true)
+    e.preventDefault();
+    setProcessing(true);
     try {
-      await signInWithPopup(auth, GoogleProvider)
-      navigate('/')
+      await signInWithPopup(auth, GoogleProvider);
+      navigate('/');
     } catch (error) {
-      setProcessing(false)
-      setError(error)
-      console.log(error.message)
+      setProcessing(false);
+      setError(error);
+      console.log(error.message);
     }
-    setProcessing(false)
-  }
+    setProcessing(false);
+  };
 
   return (
-    <form className='signin' onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className='signin'
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <input
         type='email'
         placeholder='Enter email address'
@@ -98,5 +101,5 @@ export default function SignIn() {
       </button>
       {error && <span className='invalid-message'>{error.message}</span>}
     </form>
-  )
+  );
 }

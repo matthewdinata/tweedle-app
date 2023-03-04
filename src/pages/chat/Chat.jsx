@@ -1,8 +1,8 @@
-import React from 'react'
-import Sidebar from '../../components/Sidebar'
-import Search from '../../components/chat/Search'
-import Sidechat from '../../components/chat/Sidechat'
-import ChatArea from '../../components/chat/ChatArea'
+import React from 'react';
+import Sidebar from '../../components/Sidebar';
+import Search from '../../components/chat/Search';
+import Sidechat from '../../components/chat/Sidechat';
+import ChatArea from '../../components/chat/ChatArea';
 
 export default function Chat() {
   return (
@@ -13,5 +13,5 @@ export default function Chat() {
         <ChatArea />
       </div>
     </div>
-  )
+  );
 }

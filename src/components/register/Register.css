@@ -1,9 +1,9 @@
 .register__container {
-   @apply mb-7;
+  @apply mb-7;
 }
 
 .register__container--invalid > input {
-   @apply !border-red !border-opacity-60 !border-2; 
+  @apply !border-red !border-opacity-60 !border-2;
 }
 
 .register__container > input {
@@ -15,7 +15,7 @@
 }
 
 .register__invalid-message {
-   @apply text-xs text-red absolute mt-[0.2rem] w-80;
+  @apply text-xs text-red absolute mt-[0.2rem] w-80;
 }
 
 .register__button {
