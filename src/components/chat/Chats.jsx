@@ -1,5 +1,5 @@
-import React from 'react'
-import UserChat from './UserChat'
+import React from 'react';
+import UserChat from './UserChat';
 
 export default function Chats() {
   return (
@@ -20,5 +20,5 @@ export default function Chats() {
         <UserChat />
       </div>
     </div>
-  )
+  );
 }

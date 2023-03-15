@@ -1,45 +1,44 @@
 // styles
-import './App.css'
+import './App.css';
 
 // components
-import Landing from './pages/landing/Landing'
-<<<<<<< HEAD
-import Chat from './pages/chat/Chat'
-import Home from './pages/home/Home'
+import Landing from './pages/landing/Landing';
+import Chat from './pages/chat/Chat';
+import Home from './pages/home/Home';
 
 // services
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-} from 'react-router-dom'
-=======
-import Home from './pages/home/Home'
->>>>>>> b00d1f5 ([Home] Set up components for page)
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // hooks
-import { useUser } from './hooks/useUser'
+import { useUser } from './hooks/useUser';
 
 function App() {
-  const { currentUser, login } = useUser()
+  const { currentUser, login } = useUser();
 
   // check at page load if a user is authenticated
   useEffect(() => {
-    login()
-  }, [])
+    login();
+  }, []);
 
   // protect Home route if user is null
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to='/signin' />
+      return <Navigate to='/signin' />;
     }
-    return children
-  }
+    return children;
+  };
+  ProtectedRoute.propTypes = {
+    children: PropTypes.element,
+  };
 
   return (
-<<<<<<< HEAD
     <Router>
       <Routes>
         <Route
@@ -50,7 +49,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path='/signin' element={<Landing />} />
+        <Route
+          path='/signin'
+          element={<Landing />}
+        />
         <Route
           path='/chat'
           element={
@@ -61,12 +63,7 @@ function App() {
         />
       </Routes>
     </Router>
-=======
-    <div className="app">
-      <Home/>
-    </div>
->>>>>>> b00d1f5 ([Home] Set up components for page)
-  )
+  );
 }
 
-export default App
+export default App;
