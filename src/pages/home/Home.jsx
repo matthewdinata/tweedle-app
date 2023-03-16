@@ -1,15 +1,11 @@
 import React from 'react';
 
-// hooks
-// import { useUser } from '../../hooks/useUser';
-
 // components
 import Posts from '../../components/posts/Posts';
 import PostInput from '../../components/postInput/PostInput';
 import Sidebar from '../../components/Sidebar';
 
 export default function Home() {
-  // const { currentUser, logout } = useUser();
   return (
     <div className='home grid grid-cols-[20rem,auto]'>
       <Sidebar />

@@ -6,12 +6,13 @@ import * as yup from 'yup';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, GoogleProvider } from '../../firebase';
-
+import { login } from '../../features/userSlice';
 // styles
 import './SignIn.css';
 
 // assets
 import { FcGoogle } from 'react-icons/fc';
+import { useDispatch } from 'react-redux';
 
 export default function SignIn() {
   const [error, setError] = useState(null);
@@ -35,10 +36,22 @@ export default function SignIn() {
     resolver: yupResolver(schema),
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = async (userData) => {
     setProcessing(true);
     try {
-      await signInWithEmailAndPassword(auth, userData.email, userData.password);
+      const response = await signInWithEmailAndPassword(
+        auth,
+        userData.email,
+        userData.password,
+      );
+      dispatch(
+        login({
+          email: userData.email,
+          uid: response.user.uid,
+        }),
+      );
       navigate('/');
     } catch (error) {
       setProcessing(false);

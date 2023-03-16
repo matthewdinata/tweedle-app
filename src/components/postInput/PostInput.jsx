@@ -1,9 +1,18 @@
 import React from 'react';
 
+// hooks
+import { useUser } from '../../hooks/useUser';
+import { useUserData } from '../../hooks/useUserData';
+
 // assets
 import { BiImageAlt } from 'react-icons/bi';
 
 export default function PostInput() {
+  const { currentUser } = useUser();
+  const { getUserData } = useUserData();
+
+  console.log(getUserData(currentUser.uid));
+
   return (
     <div className='post-input w-[680px] h-[250px] bg-black-100 rounded-lg p-6'>
       <div className='post-input__container flex'>
@@ -12,8 +21,8 @@ export default function PostInput() {
           src='..'
         ></img>
         <div className='container__profile flex flex-col items-start ml-5 justify-center'>
-          <span className='text-white my-[-4px] font-medium'>John Doe</span>
-          <span className='text-white font-light text-xs'>@johndoe</span>
+          <span className='text-white my-[-4px] font-medium'>TEST</span>
+          <span className='text-white font-light text-xs'>@TEST</span>
         </div>
       </div>
       <textarea
