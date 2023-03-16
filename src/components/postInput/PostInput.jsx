@@ -5,7 +5,7 @@ import { BiImageAlt } from 'react-icons/bi';
 
 export default function PostInput() {
   return (
-    <div className='post-input w-[560px] h-[250px] bg-black-100 rounded-lg p-6'>
+    <div className='post-input w-[680px] h-[250px] bg-black-100 rounded-lg p-6'>
       <div className='post-input__container flex'>
         <img
           className='bg-red rounded-full w-10 h-10'

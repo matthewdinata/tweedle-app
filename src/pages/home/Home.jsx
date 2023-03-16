@@ -1,8 +1,5 @@
 import React from 'react';
 
-// styles
-import './Home.css';
-
 // hooks
 // import { useUser } from '../../hooks/useUser';
 
@@ -14,10 +11,11 @@ import Sidebar from '../../components/Sidebar';
 export default function Home() {
   // const { currentUser, logout } = useUser();
   return (
-    <div className='home'>
+    <div className='home grid grid-cols-[20rem,auto]'>
       <Sidebar />
-      <div className='home__container flex flex-col items-center justify-center gap-7'>
+      <div className='home__container flex flex-col items-center justify-start gap-7 my-10'>
         <PostInput />
+        <Posts />
         <Posts />
       </div>
       {/* <h1 className='text-white'>{currentUser.displayName}</h1>

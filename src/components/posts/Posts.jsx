@@ -5,7 +5,7 @@ import { FiHeart } from 'react-icons/fi';
 
 export default function Posts() {
   return (
-    <div className='posts w-[560px] h-auto min-h-full bg-black-100 rounded-lg p-6 mb-10 flex flex-col gap-4'>
+    <div className='posts w-[680px] h-auto bg-black-100 rounded-lg p-6 flex flex-col gap-4'>
       <div className='posts__container flex justify-between items-start'>
         <div className='flex'>
           <img

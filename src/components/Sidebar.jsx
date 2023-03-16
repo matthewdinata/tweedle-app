@@ -4,7 +4,7 @@ import { FiHome, FiMessageSquare, FiUser } from 'react-icons/fi';
 
 export default function Sidebar() {
   return (
-    <div className='py-10 ml-10 flex flex-col min-h-screen gap-28 max-w-xs'>
+    <div className='py-10 ml-10 flex flex-col max-h-screen gap-28 max-w-xs sticky top-0'>
       <Logo />
       <div className='flex flex-col space-y-12 flex-1 px-2'>
         <div className='flex items-center space-x-5'>
