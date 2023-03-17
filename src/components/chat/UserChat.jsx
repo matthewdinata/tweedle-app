@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function UserChat() {
   return (
@@ -17,5 +17,5 @@ export default function UserChat() {
       </div>
       <hr className='mt-5 h-px bg-white border-0 opacity-10'></hr>
     </div>
-  )
+  );
 }

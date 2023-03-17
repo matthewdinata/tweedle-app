@@ -1,5 +1,5 @@
-import React from 'react'
-import { FiImage } from 'react-icons/fi'
+import React from 'react';
+import { FiImage } from 'react-icons/fi';
 
 export default function Input() {
   return (
@@ -24,5 +24,5 @@ export default function Input() {
         Send
       </button>
     </div>
-  )
+  );
 }

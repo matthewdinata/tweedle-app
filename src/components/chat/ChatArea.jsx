@@ -1,7 +1,7 @@
-import React from 'react'
-import ChatBoxNonUser from './ChatBoxNonUser'
-import ChatBoxUser from './ChatBoxUser'
-import Input from './Input'
+import React from 'react';
+import ChatBoxNonUser from './ChatBoxNonUser';
+import ChatBoxUser from './ChatBoxUser';
+import Input from './Input';
 
 export default function ChatArea() {
   return (
@@ -28,5 +28,5 @@ export default function ChatArea() {
       </div>
       <Input />
     </div>
-  )
+  );
 }

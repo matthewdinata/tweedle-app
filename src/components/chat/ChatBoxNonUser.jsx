@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function ChatBoxNonUser() {
   return (
@@ -11,8 +11,8 @@ export default function ChatBoxNonUser() {
         <p className='text-white opacity-50 text-xs'>15.36</p>
       </div>
       <p className='text-white text-sm border border-white border-opacity-40 p-3 rounded-lg rounded-bl-none'>
-        Hello, how's your day?
+        Hello, how&apos;s your day?
       </p>
     </div>
-  )
+  );
 }

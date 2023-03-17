@@ -1,6 +1,6 @@
 // services
-import React, { useState } from 'react'
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import {
   doc,
   setDoc,
@@ -8,85 +8,85 @@ import {
   getDocs,
   collection,
   where,
-} from 'firebase/firestore'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigate } from 'react-router-dom'
+} from 'firebase/firestore';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 // styles
-import './Register.css'
+import './Register.css';
 
 // assets
-import { FcGoogle } from 'react-icons/fc'
+import { FcGoogle } from 'react-icons/fc';
 
 // components
-import { auth, db, GoogleProvider } from '../../firebase'
-import { userSchema } from '../../utils/UserValidation'
+import { auth, db, GoogleProvider } from '../../firebase';
+import { userSchema } from '../../utils/UserValidation';
 
 export default function Register() {
-  const [error, setError] = useState(null)
-  const [processing, setProcessing] = useState(false)
-  const navigate = useNavigate()
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
 
   // integrate React-Hook-Form with Yup validation
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(userSchema),
-  })
-  const { errors } = formState
+  });
+  const { errors } = formState;
 
   // check for username
   const getUsername = async (email) => {
-    let proposedUsername = email.split('@')[0]
-    let usernameFlag = true
+    let proposedUsername = email.split('@')[0];
+    let usernameFlag = true;
 
     while (usernameFlag) {
-      usernameFlag = false
+      usernameFlag = false;
       const q = query(
         collection(db, 'users'),
-        where('username', '==', proposedUsername)
-      )
-      const querySnapshot = await getDocs(q)
+        where('username', '==', proposedUsername),
+      );
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach(() => {
-        usernameFlag = true
-        proposedUsername = proposedUsername + Math.floor(Math.random() * 100)
-      })
+        usernameFlag = true;
+        proposedUsername = proposedUsername + Math.floor(Math.random() * 100);
+      });
     }
-    return proposedUsername
-  }
+    return proposedUsername;
+  };
 
   // Email/Password sign in method
   const onSubmit = async (userData) => {
-    setProcessing(true)
+    setProcessing(true);
     try {
       const res = await createUserWithEmailAndPassword(
         auth,
         userData.email,
-        userData.password
-      )
-      const validUsername = await getUsername(userData.email)
+        userData.password,
+      );
+      const validUsername = await getUsername(userData.email);
       await setDoc(doc(db, 'users', res.user.uid), {
         uid: res.user.uid,
         email: userData.email,
         username: validUsername,
         displayName: validUsername,
         profilePic: null,
-      })
-      navigate('/')
+      });
+      navigate('/');
     } catch (error) {
-      setProcessing(false)
-      setError(error)
-      console.log(error.message)
+      setProcessing(false);
+      setError(error);
+      console.log(error.message);
     }
-    setProcessing(false)
-  }
+    setProcessing(false);
+  };
 
   // Google sign in method
   const handleClick = async (e) => {
-    e.preventDefault()
-    setProcessing(true)
+    e.preventDefault();
+    setProcessing(true);
     try {
-      const res = await signInWithPopup(auth, GoogleProvider)
-      const validUsername = await getUsername(res.user.email)
+      const res = await signInWithPopup(auth, GoogleProvider);
+      const validUsername = await getUsername(res.user.email);
 
       await setDoc(doc(db, 'users', res.user.uid), {
         uid: res.user.uid,
@@ -94,18 +94,21 @@ export default function Register() {
         username: validUsername,
         displayName: res.user.displayName,
         profilePic: res.user.photoURL,
-      })
-      navigate('/')
+      });
+      navigate('/');
     } catch (error) {
-      setProcessing(false)
-      setError(error)
-      console.log(error.message)
+      setProcessing(false);
+      setError(error);
+      console.log(error.message);
     }
-    setProcessing(false)
-  }
+    setProcessing(false);
+  };
 
   return (
-    <form className='register' onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className='register'
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {/* register with Email/Password */}
 
       <div
@@ -185,5 +188,5 @@ export default function Register() {
         </span>
       )}
     </form>
-  )
+  );
 }

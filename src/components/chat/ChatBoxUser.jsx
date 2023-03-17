@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function ChatBoxUser({ message }) {
   return (
@@ -10,5 +11,9 @@ export default function ChatBoxUser({ message }) {
         <p className='text-white opacity-50 text-xs'>15.36</p>
       </div>
     </div>
-  )
+  );
 }
+
+ChatBoxUser.propTypes = {
+  message: PropTypes.string,
+};
