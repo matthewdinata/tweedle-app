@@ -72,6 +72,7 @@ export default function Register() {
         username: validUsername,
         displayName: validUsername,
         profilePic: null,
+        bio: '',
       });
       // make new doc for friends
       await setDoc(doc(db, 'friends', res.user.uid), {
@@ -106,6 +107,7 @@ export default function Register() {
           username: validUsername,
           displayName: res.user.displayName,
           profilePic: res.user.photoURL,
+          bio: '',
         });
         // make new doc for friends
         await setDoc(doc(db, 'friends', res.user.uid), {
