@@ -5,6 +5,7 @@ import './App.css';
 import Landing from './pages/landing/Landing';
 import Chat from './pages/chat/Chat';
 import Home from './pages/home/Home';
+import Edit from './pages/edit/Edit';
 
 // services
 import React, { useEffect } from 'react';
@@ -59,6 +60,14 @@ function App() {
             <ProtectedRoute>
               <Chat />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/edit'
+          element={
+            // <ProtectedRoute>
+            <Edit />
+            // </ProtectedRoute>
           }
         />
       </Routes>
