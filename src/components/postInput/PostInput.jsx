@@ -7,9 +7,13 @@ import { BiImageAlt } from 'react-icons/bi';
 import { useUser } from '../../hooks/useUser';
 import { useUserData } from '../../hooks/useUserData';
 
+// services
+import { v4 as uuid } from 'uuid';
+
 export default function PostInput() {
   const [text, setText] = useState('');
   const [img, setImg] = useState(null);
+  const [err, setErr] = useState(null);
 
   // get complete user data from Firestore Database using useUserData hook
   const [user, setUser] = useState(null);

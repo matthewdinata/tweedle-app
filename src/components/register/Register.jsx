@@ -63,7 +63,7 @@ export default function Register() {
         userData.email,
         userData.password,
       );
-      console.log(res);
+
       const validUsername = await getUsername(userData.email);
       await setDoc(doc(db, 'users', res.user.uid), {
         uid: res.user.uid,
