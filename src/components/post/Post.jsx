@@ -3,7 +3,7 @@ import React from 'react';
 // assets
 import { FiHeart } from 'react-icons/fi';
 
-export default function Posts() {
+export default function Post() {
   return (
     <div className='posts w-[680px] h-auto bg-black-100 rounded-lg p-6 flex flex-col gap-4'>
       <div className='posts__container flex justify-between items-start'>
