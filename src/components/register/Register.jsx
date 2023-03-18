@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import {
   doc,
   setDoc,
+  getDoc,
   query,
   getDocs,
   collection,
@@ -85,17 +86,23 @@ export default function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     setProcessing(true);
+
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
-      const validUsername = await getUsername(res.user.email);
 
-      await setDoc(doc(db, 'users', res.user.uid), {
-        uid: res.user.uid,
-        email: res.user.email,
-        username: validUsername,
-        displayName: res.user.displayName,
-        profilePic: res.user.photoURL,
-      });
+      // before making a new doc, check if doc already exists to prevent updating the old doc
+      const docRef = doc(db, 'users', res.user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        const validUsername = await getUsername(res.user.email);
+        await setDoc(doc(db, 'users', res.user.uid), {
+          uid: res.user.uid,
+          email: res.user.email,
+          username: validUsername,
+          displayName: res.user.displayName,
+          profilePic: res.user.photoURL,
+        });
+      }
       navigate('/');
     } catch (error) {
       setProcessing(false);
