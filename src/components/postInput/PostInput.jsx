@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // assets
 import { BiImageAlt } from 'react-icons/bi';
+import { RxCross2 } from 'react-icons/rx';
 
 // hooks
 import { useUser } from '../../hooks/useUser';
@@ -19,6 +20,7 @@ export default function PostInput() {
   const [text, setText] = useState('');
   const [img, setImg] = useState(null);
   const [err, setErr] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // get complete user data from Firestore Database using useUserData hook
   const [user, setUser] = useState(null);
@@ -34,6 +36,7 @@ export default function PostInput() {
 
   // update Firestore Database when user posts
   const handlePost = async () => {
+    setLoading(true);
     const postId = uuid();
     try {
       if (img) {
@@ -78,6 +81,7 @@ export default function PostInput() {
     setText('');
     setImg(null);
     setErr(null);
+    setLoading(false);
   };
 
   return (
@@ -103,24 +107,33 @@ export default function PostInput() {
         onChange={(e) => setText(e.target.value)}
       />
       <div className='post-input__submit flex justify-between items-center'>
-        <input
-          type='file'
-          accept='image/*'
-          id='file'
-          className='post-input__attach hidden'
-          onChange={(e) => setImg(e.target.files[0])}
-        />
-        <label
-          htmlFor='file'
-          className='flex gap-2 items-center'
-        >
-          <BiImageAlt className='h-6 w-auto text-purple text-opacity-90 hover:text-opacity-100' />
-          <span className='text-sm text-white'>
-            {img ? img.name : `Add image`}
-          </span>
-        </label>
+        <div className='post-input__attachment flex items-center gap-1'>
+          <input
+            type='file'
+            accept='image/*'
+            id='file'
+            className='post-input__attach hidden'
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+          <label
+            htmlFor='file'
+            className='flex gap-2 items-center hover:cursor-pointer'
+          >
+            <BiImageAlt className='h-6 w-auto text-purple text-opacity-90 hover:text-opacity-100' />
+            <span className='text-sm text-white'>
+              {img ? img.name : `Add image`}
+            </span>
+          </label>
+          {img && (
+            <RxCross2
+              className='text-red text-lg stroke-red stroke-[0.5] ml-1 hover:cursor-pointer'
+              onClick={() => setImg(null)}
+            />
+          )}
+        </div>
         <button
-          className='post-input__button bg-purple text-white font-medium py-2 px-4 rounded-md bg-opacity-90 hover:bg-opacity-100 focus:bg-opacity-100 outline-none'
+          className='post-input__button bg-purple text-white text-opacity-100 font-medium py-2 px-4 rounded-md bg-opacity-90 enabled:hover:bg-opacity-100 focus:bg-opacity-100 outline-none disabled:transition-none disabled:bg-opacity-70 disabled:text-opacity-70 disabled:cursor-not-allowed'
+          disabled={(!text && !img) || loading}
           onClick={handlePost}
         >
           Post
