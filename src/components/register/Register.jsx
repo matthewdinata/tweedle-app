@@ -73,6 +73,11 @@ export default function Register() {
         displayName: validUsername,
         profilePic: null,
       });
+      // make new doc for friends
+      await setDoc(doc(db, 'friends', res.user.uid), {
+        uid: res.user.uid,
+        listOfFriends: [],
+      });
       navigate('/');
     } catch (error) {
       setProcessing(false);
@@ -101,6 +106,11 @@ export default function Register() {
           username: validUsername,
           displayName: res.user.displayName,
           profilePic: res.user.photoURL,
+        });
+        // make new doc for friends
+        await setDoc(doc(db, 'friends', res.user.uid), {
+          uid: res.user.uid,
+          listOfFriends: [],
         });
       }
       navigate('/');
