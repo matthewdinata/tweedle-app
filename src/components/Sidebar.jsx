@@ -11,7 +11,7 @@ export default function Sidebar() {
           <FiHome
             color='#FFFFFF'
             size={'1.5rem'}
-            stroke-width={1.5}
+            strokeWidth={1.5}
           />
           <h2 className='text-xl text-white font-medium'>Home</h2>
         </div>
@@ -19,7 +19,7 @@ export default function Sidebar() {
           <FiUser
             color='#FFFFFF'
             size={'1.5rem'}
-            stroke-width={1.5}
+            strokeWidth={1.5}
           />
           <h2 className='text-xl text-white font-medium'>Friends</h2>
         </div>
@@ -27,7 +27,7 @@ export default function Sidebar() {
           <FiMessageSquare
             color='#AF67E6'
             size={'1.5rem'}
-            stroke-width={1.5}
+            strokeWidth={1.5}
           />
           <h2 className='text-xl text-purple font-medium'>Chats</h2>
         </div>
@@ -36,7 +36,7 @@ export default function Sidebar() {
         <FiUser
           color='#FFFFFF'
           size={'2rem'}
-          stroke-width={1.5}
+          strokeWidth={1.5}
         />
         <div className='flex flex-col'>
           <h3 className='text-sm text-white text-opacity-50'>Logged in as</h3>
