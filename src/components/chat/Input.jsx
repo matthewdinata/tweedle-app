@@ -20,7 +20,7 @@ export default function Input() {
           </button>
         </span>
       </div>
-      <button className='block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 px-5 h-12 font-normal text-sm rounded-lg text-white focus:outline-none transition-all ease-in-out duration-500'>
+      <button className='block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 px-5 h-12 font-normal text-sm rounded-lg text-white transition-color ease-in-out duration-500'>
         Send
       </button>
     </div>

@@ -1,8 +1,14 @@
 import React from 'react';
 import Logo from './logo/Logo';
 import { FiHome, FiMessageSquare, FiUser } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleChat = () => {
+    navigate('/chat');
+  };
   return (
     <div className='py-10 ml-10 flex flex-col max-h-screen gap-28 max-w-xs sticky top-0'>
       <Logo />
@@ -23,7 +29,10 @@ export default function Sidebar() {
           />
           <h2 className='text-xl text-white font-medium'>Friends</h2>
         </div>
-        <div className='flex items-center space-x-5'>
+        <div
+          onClick={handleChat}
+          className='flex items-center space-x-5'
+        >
           <FiMessageSquare
             color='#AF67E6'
             size={'1.5rem'}
