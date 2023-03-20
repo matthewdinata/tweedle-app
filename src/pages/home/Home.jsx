@@ -1,11 +1,16 @@
 import React from 'react';
 
+// hooks
+import { useAuth } from '../../hooks/useAuth';
+
 // components
 import Posts from '../../components/post/Posts';
 import PostInput from '../../components/post/PostInput';
 import Sidebar from '../../components/Sidebar';
 
 export default function Home() {
+  const { currentUid, logout } = useAuth();
+
   return (
     <div className='home grid grid-cols-[20rem,auto]'>
       <Sidebar />
