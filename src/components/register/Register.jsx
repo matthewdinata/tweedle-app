@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import {
   doc,
   setDoc,
+  getDoc,
   query,
   getDocs,
   collection,
@@ -68,6 +69,7 @@ export default function Register() {
         userData.email,
         userData.password,
       );
+
       const validUsername = await getUsername(userData.email);
       await setDoc(doc(db, 'users', res.user.uid), {
         uid: res.user.uid,
@@ -75,6 +77,12 @@ export default function Register() {
         username: validUsername,
         displayName: validUsername,
         profilePic: null,
+        bio: '',
+      });
+      // make new doc for friends
+      await setDoc(doc(db, 'friends', res.user.uid), {
+        uid: res.user.uid,
+        listOfFriends: [],
       });
       navigate('/');
     } catch (error) {
@@ -89,17 +97,29 @@ export default function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     setProcessing(true);
+
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
-      const validUsername = await getUsername(res.user.email);
 
-      await setDoc(doc(db, 'users', res.user.uid), {
-        uid: res.user.uid,
-        email: res.user.email,
-        username: validUsername,
-        displayName: res.user.displayName,
-        profilePic: res.user.photoURL,
-      });
+      // before making a new doc, check if doc already exists to prevent updating the old doc
+      const docRef = doc(db, 'users', res.user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        const validUsername = await getUsername(res.user.email);
+        await setDoc(doc(db, 'users', res.user.uid), {
+          uid: res.user.uid,
+          email: res.user.email,
+          username: validUsername,
+          displayName: res.user.displayName,
+          profilePic: res.user.photoURL,
+          bio: '',
+        });
+        // make new doc for friends
+        await setDoc(doc(db, 'friends', res.user.uid), {
+          uid: res.user.uid,
+          listOfFriends: [],
+        });
+      }
       navigate('/');
     } catch (error) {
       setProcessing(false);
