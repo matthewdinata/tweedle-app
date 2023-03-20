@@ -23,9 +23,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { auth, db, GoogleProvider } from '../../firebase';
 import { userSchema } from '../../utils/UserValidation';
 
+// hooks
+import { useAuth } from '../../hooks/useAuth';
+
 export default function Register() {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   // integrate React-Hook-Form with Yup validation
@@ -71,6 +75,10 @@ export default function Register() {
         displayName: validUsername,
         profilePic: null,
       });
+
+      // dispatch auth state data
+      login(res.user.uid);
+
       navigate('/');
     } catch (error) {
       setProcessing(false);
@@ -95,6 +103,10 @@ export default function Register() {
         displayName: res.user.displayName,
         profilePic: res.user.photoURL,
       });
+
+      // dispatch auth state data
+      login(res.user.uid);
+
       navigate('/');
     } catch (error) {
       setProcessing(false);

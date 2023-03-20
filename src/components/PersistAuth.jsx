@@ -21,5 +21,5 @@ export default function PersistAuth() {
     });
     unsub();
   }, []);
-  return loading ? <p>Loading...</p> : <Outlet />;
+  return loading ? <p className='text-white'>Loading...</p> : <Outlet />;
 }

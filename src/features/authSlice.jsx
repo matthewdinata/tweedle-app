@@ -14,7 +14,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
     },
     logout: (state) => {
-      state.uid = '';
+      state.uid = null;
       state.isAuthenticated = false;
     },
   },
