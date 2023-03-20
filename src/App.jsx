@@ -3,6 +3,7 @@ import './App.css'
 
 // components
 import Landing from './pages/landing/Landing'
+import Home from './pages/home/Home'
 
 // components
 import Landing from './pages/landing/Landing';
@@ -42,6 +43,7 @@ function App() {
   };
 
   return (
+
     <Router>
       <Routes>
         <Route
@@ -67,6 +69,7 @@ function App() {
       </Routes>
     </Router>
   );
+
 }
 
 export default App;
