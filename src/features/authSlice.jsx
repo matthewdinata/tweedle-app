@@ -13,14 +13,20 @@ export const authSlice = createSlice({
       state.uid = action.payload;
       state.isAuthenticated = true;
     },
+    setUserData: (state, action) => {
+      state.userInfo = action.payload;
+      state.isDataComplete = true;
+    },
     logout: (state) => {
       state.uid = null;
+      state.userInfo = {};
       state.isAuthenticated = false;
+      state.isDataComplete = false;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setUserData } = authSlice.actions;
 
 // selectors
 export const selectUid = (state) => state.auth.uid;
