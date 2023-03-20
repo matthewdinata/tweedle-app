@@ -25,13 +25,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { auth, db, GoogleProvider } from '../../firebase';
 import { userSchema } from '../../utils/UserValidation';
 
-
-// assets
-import { FcGoogle } from "react-icons/fc"
+// hooks
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Register() {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   // integrate React-Hook-Form with Yup validation
@@ -84,6 +84,10 @@ export default function Register() {
         uid: res.user.uid,
         listOfFriends: [],
       });
+
+      // dispatch auth state data
+      login(res.user.uid);
+
       navigate('/');
     } catch (error) {
       setProcessing(false);
@@ -100,7 +104,7 @@ export default function Register() {
 
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
-
+      
       // before making a new doc, check if doc already exists to prevent updating the old doc
       const docRef = doc(db, 'users', res.user.uid);
       const docSnap = await getDoc(docRef);
@@ -120,6 +124,8 @@ export default function Register() {
           listOfFriends: [],
         });
       }
+      // dispatch auth state data
+      login(res.user.uid);
       navigate('/');
     } catch (error) {
       setProcessing(false);

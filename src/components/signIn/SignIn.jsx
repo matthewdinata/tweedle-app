@@ -7,6 +7,9 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, GoogleProvider } from '../../firebase';
 
+// hooks
+import { useAuth } from '../../hooks/useAuth';
+
 // styles
 import './SignIn.css';
 
@@ -16,6 +19,7 @@ import { FcGoogle } from 'react-icons/fc';
 export default function SignIn() {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   // yup schema
@@ -38,7 +42,12 @@ export default function SignIn() {
   const onSubmit = async (userData) => {
     setProcessing(true);
     try {
-      await signInWithEmailAndPassword(auth, userData.email, userData.password);
+      const res = await signInWithEmailAndPassword(
+        auth,
+        userData.email,
+        userData.password,
+      );
+      login(res.user.uid);
       navigate('/');
     } catch (error) {
       setProcessing(false);
@@ -53,7 +62,8 @@ export default function SignIn() {
     e.preventDefault();
     setProcessing(true);
     try {
-      await signInWithPopup(auth, GoogleProvider);
+      const res = await signInWithPopup(auth, GoogleProvider);
+      login(res.user.uid);
       navigate('/');
     } catch (error) {
       setProcessing(false);
