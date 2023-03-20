@@ -12,10 +12,8 @@ export default function PersistAuth() {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         login(user.uid);
-        console.log('logged in');
       } else {
         logout();
-        console.log('logged out');
       }
       setLoading(false);
     });
