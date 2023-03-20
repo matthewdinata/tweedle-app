@@ -1,5 +1,8 @@
-// styles
-import './App.css';
+// styles 
+import './App.css'
+
+// components
+import Landing from './pages/landing/Landing'
 
 // components
 import Landing from './pages/landing/Landing';

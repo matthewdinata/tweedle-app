@@ -1,3 +1,4 @@
+
 // services
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
@@ -22,6 +23,10 @@ import { FcGoogle } from 'react-icons/fc';
 // components
 import { auth, db, GoogleProvider } from '../../firebase';
 import { userSchema } from '../../utils/UserValidation';
+
+
+// assets
+import { FcGoogle } from "react-icons/fc"
 
 export default function Register() {
   const [error, setError] = useState(null);
@@ -105,6 +110,7 @@ export default function Register() {
   };
 
   return (
+
     <form
       className='register'
       onSubmit={handleSubmit(onSubmit)}
@@ -187,6 +193,7 @@ export default function Register() {
           Something went wrong. {error.message}
         </span>
       )}
+
     </form>
   );
 }
