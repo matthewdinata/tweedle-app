@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 
 // assets
@@ -6,8 +5,7 @@ import { BiImageAlt } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
 
 // hooks
-import { useUser } from '../../hooks/useUser';
-import { useUserData } from '../../hooks/useUserData';
+import { useAuth } from '../../hooks/useAuth';
 
 // components
 import { db, storage } from '../../firebase';
@@ -22,18 +20,7 @@ export default function PostInput() {
   const [img, setImg] = useState(null);
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // get complete user data from Firestore Database using useUserData hook
-  const [user, setUser] = useState(null);
-  const { currentUser } = useUser();
-  const { getUserData } = useUserData();
-  useEffect(() => {
-    const getCompleteUser = async () => {
-      const res = await getUserData(currentUser.uid);
-      setUser(res);
-    };
-    getCompleteUser();
-  }, []);
+  const { currentUser, currentUid } = useAuth();
 
   // update Firestore Database when user posts
   const handlePost = async () => {
@@ -52,7 +39,7 @@ export default function PostInput() {
           await setDoc(doc(db, 'posts', postId), {
             id: postId,
             text,
-            posterId: user.uid,
+            posterId: currentUid,
             date: Timestamp.now(),
             img: downloadURL,
           });
@@ -66,7 +53,7 @@ export default function PostInput() {
         await setDoc(doc(db, 'posts', postId), {
           id: postId,
           text,
-          posterId: user.uid,
+          posterId: currentUid,
           date: Timestamp.now(),
         });
         // also create a document for likes
@@ -90,14 +77,14 @@ export default function PostInput() {
       <div className='post-input__container flex'>
         <img
           className='bg-red rounded-full w-10 h-10'
-          src={user?.profilePic}
+          src={currentUser?.profilePic}
         ></img>
         <div className='container__profile flex flex-col items-start ml-5 justify-center'>
           <span className='text-white my-[-4px] font-medium'>
-            {user?.displayName}
+            {currentUser?.displayName}
           </span>
           <span className='text-white font-light text-xs'>
-            @{user?.username}
+            @{currentUser?.username}
           </span>
         </div>
       </div>
@@ -142,5 +129,4 @@ export default function PostInput() {
       </div>
     </div>
   );
-
 }
