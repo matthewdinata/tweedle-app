@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 // assets
@@ -41,4 +42,5 @@ export default function Posts() {
       </div>
     </div>
   );
+
 }

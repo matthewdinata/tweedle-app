@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 
 // assets
@@ -141,4 +142,5 @@ export default function PostInput() {
       </div>
     </div>
   );
+
 }
