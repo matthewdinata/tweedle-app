@@ -1,5 +1,9 @@
-// styles
-import './App.css';
+// styles 
+import './App.css'
+
+// components
+import Landing from './pages/landing/Landing'
+import Home from './pages/home/Home'
 
 // pages
 import Landing from './pages/landing/Landing';
@@ -16,6 +20,7 @@ import PersistAuth from './components/PersistAuth';
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route element={<PersistAuth />}>
@@ -37,6 +42,7 @@ function App() {
       </Routes>
     </Router>
   );
+
 }
 
 export default App;

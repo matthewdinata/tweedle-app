@@ -1,6 +1,5 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
-import Search from '../../components/chat/Search';
 import Sidechat from '../../components/chat/Sidechat';
 import ChatArea from '../../components/chat/ChatArea';
 
