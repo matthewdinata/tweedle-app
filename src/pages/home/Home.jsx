@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 // styles 
@@ -16,4 +17,5 @@ export default function Home() {
       </div>
     </div>
   )
+
 }
