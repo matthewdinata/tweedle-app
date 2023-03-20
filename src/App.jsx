@@ -15,12 +15,12 @@ import {
   Navigate,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useAuth } from './hooks/useAuth';
 
 // hooks
-import { useUser } from './hooks/useUser';
 
 function App() {
-  const { currentUser, login } = useUser();
+  const { currentUid, login } = useAuth();
 
   // check at page load if a user is authenticated
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
 
   // protect Home route if user is null
   const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
+    if (!currentUid) {
       return <Navigate to='/signin' />;
     }
     return children;
