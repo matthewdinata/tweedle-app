@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 input {
-  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 px-8 font-normal rounded-lg text-white;
+  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 px-8 font-normal rounded-lg text-white;
 }
 
 input:focus {
