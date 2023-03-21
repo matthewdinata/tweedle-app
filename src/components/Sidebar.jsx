@@ -2,8 +2,10 @@ import React from 'react';
 import Logo from './logo/Logo';
 import { FiHome, FiMessageSquare, FiUser } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Sidebar() {
+  const { currentUserInfo } = useAuth();
   const navigate = useNavigate();
 
   const handleChat = () => {
@@ -42,14 +44,15 @@ export default function Sidebar() {
         </div>
       </div>
       <div className='flex items-center space-x-5'>
-        <FiUser
-          color='#FFFFFF'
-          size={'2rem'}
-          strokeWidth={1.5}
-        />
+        <img
+          className='bg-red rounded-full w-10 h-10'
+          src={currentUserInfo?.profilePic}
+        ></img>
         <div className='flex flex-col'>
           <h3 className='text-sm text-white text-opacity-50'>Logged in as</h3>
-          <h2 className='font-semibold text-white'>Matthew Dinata</h2>
+          <h2 className='font-medium text-white'>
+            {currentUserInfo?.displayName}
+          </h2>
         </div>
       </div>
     </div>
