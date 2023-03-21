@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 input {
-  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 px-8 font-normal rounded-lg text-white;
+  @apply block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 px-8 font-normal rounded-lg text-white;
 }
 
 input:focus {
@@ -16,4 +16,8 @@ input.input--invalid {
 
 span.invalid-message {
   @apply block mt-2  text-center text-xs text-red w-80;
+}
+
+.loading-message {
+  @apply flex items-center justify-center text-center min-h-screen text-white text-opacity-40 font-medium tracking-wider text-xl;
 }

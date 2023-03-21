@@ -5,10 +5,24 @@ import './Edit.css';
 
 // components
 import Sidebar from '../../components/Sidebar';
+import { userSchema } from '../../utils/UserValidation';
+
+// services
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
 export default function Edit() {
   const [bio, setBio] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  // integrate React-Hook-Form with Yup validation
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(userSchema),
+  });
+  const { errors } = formState;
+
+  const onSubmit = () => {
+    console.log(errors);
+  };
 
   return (
     <div className='edit grid grid-cols-[20rem,auto]'>
@@ -28,8 +42,15 @@ export default function Edit() {
             </span>
           </div>
         </div>
-        <form className='edit__form flex flex-col gap-1'>
-          <div className='form__container flex flex-col gap-2'>
+        <form
+          className='edit__form flex flex-col gap-[2.2rem]'
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div
+            className={`form__container flex flex-col gap-2 ${
+              errors.username ? 'form__container--invalid' : ''
+            }`}
+          >
             <h3 className='form__subtitle'>
               Username <span className='text-red'>*</span>
             </h3>
@@ -37,9 +58,17 @@ export default function Edit() {
               type='text'
               name='username'
               placeholder='Enter username'
+              {...register('username')}
             />
+            <span className='invalid-message'>
+              {errors.username ? errors.username.message : ''}
+            </span>
           </div>
-          <div className='form__container flex flex-col gap-2'>
+          <div
+            className={`form__container flex flex-col gap-2 ${
+              errors.displayName ? 'form__container--invalid' : ''
+            }`}
+          >
             <h3 className='form__subtitle'>
               Display name <span className='text-red'>*</span>
             </h3>
@@ -47,7 +76,11 @@ export default function Edit() {
               type='text'
               name='displayName'
               placeholder='Enter display name'
+              {...register('displayName')}
             />
+            <span className='invalid-message'>
+              {errors.displayName ? errors.displayName.message : ''}
+            </span>
           </div>
           <div className='form__container flex flex-col gap-2'>
             <h3 className='form__subtitle'>Bio</h3>
@@ -60,8 +93,8 @@ export default function Edit() {
             />
           </div>
           <button
-            className='bg-purple text-white font-medium w-20 h-10 py-2 px-4 text-sm rounded-md bg-opacity-90 enabled:hover:bg-opacity-100 transition-all ease-in-out duration-300 focus:bg-opacity-100 outline-none disabled:transition-none disabled:bg-opacity-70 disabled:text-opacity-70 disabled:cursor-not-allowed ml-auto'
-            disabled={loading}
+            className='bg-purple text-white font-medium w-20 h-10 py-2 px-4 text-sm rounded-md bg-opacity-90 enabled:hover:bg-opacity-100 transition-all ease-in-out duration-300 focus:bg-opacity-100 outline-none disabled:transition-none disabled:bg-opacity-70 disabled:text-opacity-70 disabled:cursor-not-allowed ml-auto mt-[-1.5rem]'
+            disabled={false}
           >
             Save
           </button>
