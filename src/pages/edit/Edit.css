@@ -3,7 +3,7 @@
 }
 
 .edit__form input {
-  @apply bg-opacity-0 border-[1.5px] border-white border-opacity-40 w-[420px] h-16 focus:border-[1.5px] focus:bg-none;
+  @apply bg-opacity-0 border-[1.5px] border-white border-opacity-40 w-[420px] h-16 focus:border-[1.5px] focus:bg-none !mb-0;
 }
 
 .edit__form textarea {
@@ -12,4 +12,8 @@
 
 .edit__form textarea:focus {
   @apply border-purple border-opacity-40 transition-colors ease-in-out duration-500;
+}
+
+.edit__form .invalid-message {
+  @apply !mt-[6.2rem] text-start absolute;
 }
