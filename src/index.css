@@ -19,5 +19,5 @@ span.invalid-message {
 }
 
 .loading-message {
-  @apply flex items-center justify-center text-center min-h-screen text-white text-opacity-40;
+  @apply flex items-center justify-center text-center min-h-screen text-white text-opacity-40 font-medium tracking-wider text-xl;
 }

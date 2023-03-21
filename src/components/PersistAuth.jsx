@@ -19,5 +19,5 @@ export default function PersistAuth() {
     });
     unsub();
   }, []);
-  return loading ? <p className='loading-message'>Loading...</p> : <Outlet />;
+  return loading ? <p className='loading-message'>LOADING...</p> : <Outlet />;
 }
