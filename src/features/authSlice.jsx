@@ -30,6 +30,7 @@ export const { login, logout, setUserData } = authSlice.actions;
 
 // selectors
 export const selectUid = (state) => state.auth.uid;
+export const selectUserInfo = (state) => state.auth.userInfo;
 export const selectUser = (state) => state.auth;
 
 export default authSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 // assets
 import { BiImageAlt } from 'react-icons/bi';
@@ -20,7 +20,7 @@ export default function PostInput() {
   const [img, setImg] = useState(null);
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { currentUser, currentUid } = useAuth();
+  const { currentUserInfo, currentUid } = useAuth();
 
   // update Firestore Database when user posts
   const handlePost = async () => {
@@ -77,14 +77,14 @@ export default function PostInput() {
       <div className='post-input__container flex'>
         <img
           className='bg-red rounded-full w-10 h-10'
-          src={currentUser?.profilePic}
+          src={currentUserInfo?.profilePic}
         ></img>
         <div className='container__profile flex flex-col items-start ml-5 justify-center'>
           <span className='text-white my-[-4px] font-medium'>
-            {currentUser?.displayName}
+            {currentUserInfo?.displayName}
           </span>
           <span className='text-white font-light text-xs'>
-            @{currentUser?.username}
+            @{currentUserInfo?.username}
           </span>
         </div>
       </div>
