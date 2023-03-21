@@ -8,7 +8,7 @@ export default function Input() {
         <input
           type='text'
           placeholder='Type message..'
-          className='flex flex-1 h-12 pl-4 mb-0 bg-white bg-opacity-10 text-sm font-normal'
+          className='flex flex-1 h-12 pl-4 mb-0 bg-opacity-10 text-sm font-normal'
         ></input>
         <span className='absolute inset-y-0 right-4 flex items-center'>
           <button>
@@ -20,7 +20,7 @@ export default function Input() {
           </button>
         </span>
       </div>
-      <button className='block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 px-5 h-12 font-normal text-sm rounded-lg text-white transition-color ease-in-out duration-500'>
+      <button className='block border-none bg-purple bg-opacity-90 focus:bg-opacity-100 hover:bg-opacity-100 px-5 h-12 font-normal text-sm rounded-lg text-white transition-all ease-in-out duration-500'>
         Send
       </button>
     </div>

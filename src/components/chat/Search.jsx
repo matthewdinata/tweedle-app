@@ -76,13 +76,13 @@ export default function Search() {
         // add user to current user's chat list
         console.log(currentUserInfo);
         await updateDoc(doc(db, 'userChats', currentUid), {
-          [combinedId + '.userId']: currentUid,
+          [combinedId + '.userId']: userSearched.uid,
           [combinedId + '.date']: serverTimestamp(),
         });
 
         // add current user to user's chat list
         await updateDoc(doc(db, 'userChats', userSearched.uid), {
-          [combinedId + '.userId']: userSearched.uid,
+          [combinedId + '.userId']: currentUid,
           [combinedId + '.date']: serverTimestamp(),
         });
       }
