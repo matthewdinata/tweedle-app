@@ -1,4 +1,3 @@
-
 // services
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
@@ -85,6 +84,9 @@ export default function Register() {
         listOfFriends: [],
       });
 
+      // make new doc for current user's chat list
+      await setDoc(doc(db, 'userChats', res.user.uid), {});
+
       // dispatch auth state data
       login(res.user.uid);
 
@@ -104,7 +106,7 @@ export default function Register() {
 
     try {
       const res = await signInWithPopup(auth, GoogleProvider);
-      
+
       // before making a new doc, check if doc already exists to prevent updating the old doc
       const docRef = doc(db, 'users', res.user.uid);
       const docSnap = await getDoc(docRef);
@@ -123,6 +125,8 @@ export default function Register() {
           uid: res.user.uid,
           listOfFriends: [],
         });
+        // make new doc for current user's chat list
+        await setDoc(doc(db, 'userChats', res.user.uid), {});
       }
       // dispatch auth state data
       login(res.user.uid);
@@ -136,7 +140,6 @@ export default function Register() {
   };
 
   return (
-
     <form
       className='register'
       onSubmit={handleSubmit(onSubmit)}
@@ -219,7 +222,6 @@ export default function Register() {
           Something went wrong. {error.message}
         </span>
       )}
-
     </form>
   );
 }
