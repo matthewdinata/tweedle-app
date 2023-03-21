@@ -5,6 +5,7 @@ import {
   setUserData,
   selectUid,
   selectUser,
+  selectUserInfo,
 } from '../features/authSlice';
 
 // firebase
@@ -14,6 +15,7 @@ import { useUserData } from './useUserData';
 
 export const useAuth = () => {
   const uid = useSelector(selectUid);
+  const userInfo = useSelector(selectUserInfo);
   const user = useSelector(selectUser);
   const { getUserData } = useUserData();
   const dispatch = useDispatch();
@@ -45,6 +47,7 @@ export const useAuth = () => {
   return {
     currentUid: uid,
     currentUser: user,
+    currentUserInfo: userInfo,
     login: loginHelper,
     logout: logoutHelper,
   };

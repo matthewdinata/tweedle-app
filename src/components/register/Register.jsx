@@ -84,6 +84,9 @@ export default function Register() {
         listOfFriends: [],
       });
 
+      // make new doc for current user's chat list
+      await setDoc(doc(db, 'userChats', res.user.uid), {});
+
       // dispatch auth state data
       login(res.user.uid);
 
@@ -122,6 +125,8 @@ export default function Register() {
           uid: res.user.uid,
           listOfFriends: [],
         });
+        // make new doc for current user's chat list
+        await setDoc(doc(db, 'userChats', res.user.uid), {});
       }
       // dispatch auth state data
       login(res.user.uid);
