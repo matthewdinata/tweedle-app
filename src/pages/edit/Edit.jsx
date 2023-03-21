@@ -5,7 +5,7 @@ import './Edit.css';
 
 // components
 import Sidebar from '../../components/Sidebar';
-import { userSchema } from '../../utils/UserValidation';
+import { profileSchema } from '../../utils/ProfileValidation';
 
 // services
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +16,7 @@ export default function Edit() {
 
   // integrate React-Hook-Form with Yup validation
   const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(userSchema),
+    resolver: yupResolver(profileSchema),
   });
   const { errors } = formState;
 
