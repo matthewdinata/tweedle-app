@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-// import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 
 // components
 import UserList from './UserList';
 
 // firebase
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  getDoc,
+  getDocs,
+  doc,
+  query,
+  setDoc,
+  where,
+  updateDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { db } from '../../firebase';
 
 export default function Search() {
   const [usernameSearched, setUsernameSearched] = useState();
   const [userSearched, setUserSearched] = useState();
   const [loading, setLoading] = useState();
-  const [error, setError] = useState(false);
   const [showSearchResult, setShowSearchResult] = useState(false);
-  // const { currentUid } = useAuth();
+  const { currentUid, currentUserInfo } = useAuth();
 
   const handleKey = (e) => {
     if (e.code === 'Enter') {
@@ -28,8 +37,6 @@ export default function Search() {
       }
     }
   };
-
-  // const getUserFromUsername = async () => {};
 
   const handleSearch = async () => {
     setLoading(true);
@@ -45,10 +52,46 @@ export default function Search() {
       });
     } catch (error) {
       setUserSearched(null);
-      setError(true);
+      console.log(error.messages);
     }
     setLoading(false);
     setShowSearchResult(true);
+  };
+
+  const handleSelect = async () => {
+    // check whether current user and seleted user's chat exist
+    const combinedId =
+      currentUid > userSearched.uid
+        ? currentUid + userSearched.uid
+        : userSearched.uid + currentUid;
+    try {
+      const res = await getDoc(doc(db, 'chats', combinedId));
+
+      if (!res.exists()) {
+        // create new chats, if doesn't exist
+        await setDoc(doc(db, 'chats', combinedId), {
+          messages: [],
+        });
+
+        // add user to current user's chat list
+        console.log(currentUserInfo);
+        await updateDoc(doc(db, 'userChats', currentUid), {
+          [combinedId + '.userId']: currentUid,
+          [combinedId + '.date']: serverTimestamp(),
+        });
+
+        // add current user to user's chat list
+        await updateDoc(doc(db, 'userChats', userSearched.uid), {
+          [combinedId + '.userId']: userSearched.uid,
+          [combinedId + '.date']: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setUserSearched(null);
+    setUsernameSearched('');
+    setShowSearchResult(false);
   };
 
   return (
@@ -68,7 +111,8 @@ export default function Search() {
           placeholder='Search chats..'
           className='pl-16 font-normal'
           onKeyDown={handleKey}
-          onChange={(e) => setUsernameSearched(e.target.value)}
+          onChange={(e) => setUsernameSearched(e.target.value.trim())}
+          value={usernameSearched}
         />
       </div>
       {loading && (
@@ -85,7 +129,10 @@ export default function Search() {
           )}
           {userSearched && (
             <>
-              <div className='flex flex-col'>
+              <div
+                className='flex flex-col'
+                onClick={handleSelect}
+              >
                 <UserList
                   username={userSearched.username}
                   displayName={userSearched.displayName}
