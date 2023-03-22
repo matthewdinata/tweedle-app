@@ -42,5 +42,6 @@ export default function getProfileSchema(userInfo) {
       .string()
       .required('You must enter a display name.')
       .trim('Display name cannot include leading and trailing spaces'),
+    bio: yup.string(),
   });
 }

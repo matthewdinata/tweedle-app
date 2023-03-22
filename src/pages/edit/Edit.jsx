@@ -11,10 +11,11 @@ import getProfileSchema from '../../utils/ProfileValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 // firebase
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 // hooks
@@ -165,6 +166,7 @@ export default function Edit() {
               maxLength='250'
               defaultValue={currentUserInfo.bio}
               onChange={(e) => setBio(e.target.value)}
+              {...register('bio')}
             />
           </div>
           <button
