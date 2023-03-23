@@ -74,11 +74,11 @@ export default function Edit() {
       }
       login(currentUid);
       navigate('/');
-    } catch (error) {
-      setProcessing(false);
-      setError(error);
-      console.log(error.message);
+    } catch (err) {
+      setError(err);
+      console.log(error?.message);
     }
+    setProcessing(false);
   };
 
   // integrate React-Hook-Form with Yup validation
@@ -169,7 +169,7 @@ export default function Edit() {
           </div>
           <button
             className='bg-purple text-white font-medium w-20 h-10 py-2 px-4 text-sm rounded-md bg-opacity-90 enabled:hover:bg-opacity-100 transition-all ease-in-out duration-300 focus:bg-opacity-100 outline-none disabled:transition-none disabled:bg-opacity-70 disabled:text-opacity-70 disabled:cursor-not-allowed ml-auto mt-[-1.5rem]'
-            disabled={false}
+            disabled={processing}
           >
             Save
           </button>
