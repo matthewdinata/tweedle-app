@@ -89,7 +89,6 @@ export default function Register() {
 
       // dispatch auth state data
       login(res.user.uid);
-
       navigate('/');
     } catch (error) {
       setProcessing(false);
