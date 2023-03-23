@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 // hooks
 import { useAuth } from '../../hooks/useAuth';
-
-// services
-import { doc, onSnapshot } from 'firebase/firestore';
+import { useFriends } from '../../hooks/useFriends';
 
 // components
-import { db } from '../../firebase';
 import Post from './Post';
 
 export default function Posts() {
-  const [friends, setFriends] = useState([]);
   const { currentUid } = useAuth();
 
-  // get list of friends
+  const { getFriendList, userFriends } = useFriends();
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, 'friends', currentUid), (doc) => {
-      doc.exists() && setFriends(doc.data().listOfFriends);
-    });
-    return () => {
-      unsub();
-    };
+    getFriendList(currentUid);
   }, []);
-  console.log(friends);
+  console.log(userFriends);
 
   return (
     <div>
