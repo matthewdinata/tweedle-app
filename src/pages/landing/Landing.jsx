@@ -34,9 +34,9 @@ export default function Landing() {
             </button>
           </div>
         </div>
-        <div className='landing__container flex justify-between items-center'>
+        <div className='landing__container flex justify-between items-center h-[32rem]'>
           <img
-            className='landing__image h-[28rem]'
+            className='landing__image h-[28rem] my-auto'
             src={LandingImage}
           />
           <div className='landing__form py-auto'>

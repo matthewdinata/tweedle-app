@@ -3,7 +3,7 @@
 }
 
 .landing__navbar__link {
-  @apply flex space-x-10;
+  @apply flex space-x-10 font-medium;
 }
 
 .landing__navbar__link > a {
@@ -11,5 +11,5 @@
 }
 
 .landing__navbar__link .link--active {
-  @apply text-purple underline underline-offset-8;
+  @apply text-purple font-medium underline underline-offset-8;
 }
