@@ -22,15 +22,14 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function Edit() {
-  const [bio, setBio] = useState('');
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const [img, setImg] = useState(null);
-  const { currentUserInfo, currentUid } = useAuth();
+
+  const { currentUserInfo, currentUid, login } = useAuth();
   const navigate = useNavigate();
 
-  // logic for profilePic
   useEffect(() => {
     if (currentUserInfo) {
       setImgUrl(currentUserInfo.profilePic);
@@ -73,6 +72,7 @@ export default function Edit() {
           bio: userData.bio,
         });
       }
+      login(currentUid);
       navigate('/');
     } catch (error) {
       setProcessing(false);
@@ -160,12 +160,10 @@ export default function Edit() {
           <div className='form__container flex flex-col gap-2'>
             <h3 className='form__subtitle'>Bio</h3>
             <textarea
-              value={bio}
               placeholder='Enter bio'
               className='form__textarea'
               maxLength='250'
               defaultValue={currentUserInfo.bio}
-              onChange={(e) => setBio(e.target.value)}
               {...register('bio')}
             />
           </div>
