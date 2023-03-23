@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 // assets
@@ -10,7 +9,7 @@ export default function Post() {
       <div className='posts__container flex justify-between items-start'>
         <div className='flex'>
           <img
-            className='bg-red rounded-full w-10 h-10'
+            className='bg-black rounded-full w-10 h-10'
             src='..'
           ></img>
           <div className='container__profile flex flex-col items-start ml-5 justify-center'>
@@ -42,5 +41,4 @@ export default function Post() {
       </div>
     </div>
   );
-
 }

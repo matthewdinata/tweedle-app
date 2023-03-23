@@ -13,6 +13,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 // styles
 import './Register.css';
@@ -21,7 +22,7 @@ import './Register.css';
 import { FcGoogle } from 'react-icons/fc';
 
 // components
-import { auth, db, GoogleProvider } from '../../firebase';
+import { auth, db, storage, GoogleProvider } from '../../firebase';
 import { userSchema } from '../../utils/UserValidation';
 
 // hooks
@@ -63,6 +64,13 @@ export default function Register() {
   const onSubmit = async (userData) => {
     setProcessing(true);
     try {
+      const defaultPic = await getDownloadURL(
+        ref(
+          storage,
+          'gs://tweedle-app.appspot.com/83bc8b88cf6bc4b4e04d153a418cde62.jpg',
+        ),
+      );
+
       const res = await createUserWithEmailAndPassword(
         auth,
         userData.email,
@@ -75,7 +83,7 @@ export default function Register() {
         email: userData.email,
         username: validUsername,
         displayName: validUsername,
-        profilePic: null,
+        profilePic: defaultPic,
         bio: '',
       });
       // make new doc for friends
