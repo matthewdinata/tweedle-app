@@ -18,7 +18,7 @@ export default function Posts() {
 
   return (
     <div>
-      <Post />
+      <Post postId='19da81af-4989-49d6-9824-ddca1e4e2240' />
     </div>
   );
 }

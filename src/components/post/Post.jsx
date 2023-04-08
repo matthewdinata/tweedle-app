@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+// firebase
+import { db } from '../../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 // assets
 import { FiHeart } from 'react-icons/fi';
 
-export default function Post() {
+export default function Post({ postId }) {
+  const [post, setPost] = useState(null);
+
+  // get specific post
+  const getPost = async (postId) => {
+    const docRef = doc(db, 'posts', postId);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
+
+  useEffect(() => {
+    getPost(postId).then((res) => {
+      setPost(res);
+    });
+  }, []);
+
+  console.log(post);
+
   return (
     <div className='posts w-[680px] h-auto bg-black-100 rounded-lg p-6 flex flex-col gap-4'>
       <div className='posts__container flex justify-between items-start'>
@@ -42,3 +64,7 @@ export default function Post() {
     </div>
   );
 }
+
+Post.propTypes = {
+  postId: PropTypes.string.isRequired,
+};
