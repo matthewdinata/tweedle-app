@@ -76,7 +76,7 @@ export default function PostInput() {
     <div className='post-input w-[680px] h-[250px] bg-black-100 rounded-lg p-6'>
       <div className='post-input__container flex'>
         <img
-          className='bg-black rounded-full w-10 h-10'
+          className='bg-black rounded-full w-10 h-10 object-cover'
           src={currentUserInfo?.profilePic}
         ></img>
         <div className='container__profile flex flex-col items-start ml-5 justify-center'>

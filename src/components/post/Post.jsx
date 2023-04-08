@@ -14,7 +14,7 @@ import { useUserData } from '../../hooks/useUserData';
 export default function Post({ postId }) {
   const [post, setPost] = useState(null);
   const [poster, setPoster] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { getUserData } = useUserData();
 
   // get specific post
@@ -25,6 +25,7 @@ export default function Post({ postId }) {
   };
 
   useEffect(() => {
+    setLoading(true);
     const initiatePost = async () => {
       const postResponse = await getPost(postId);
       setPost(postResponse);
@@ -45,7 +46,7 @@ export default function Post({ postId }) {
           <div className='posts__container flex justify-between items-start'>
             <div className='flex'>
               <img
-                className='bg-black rounded-full w-10 h-10'
+                className='bg-black rounded-full w-10 h-10 object-cover'
                 src={poster.profilePic}
               ></img>
 
