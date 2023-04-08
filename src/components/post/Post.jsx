@@ -43,19 +43,17 @@ export default function Post({ postId }) {
         </div>
         <span className='text-white text-opacity-50 text-xs'>4m</span>
       </div>
-      <div className='posts__container overflow-auto flex flex-col gap-4'>
-        <span className='text-white text-sm'>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda
-          perspiciatis atque eius repellat voluptas reiciendis. Tempora
-          molestias quo expedita obcaecati perspiciatis consequuntur pariatur
-          totam recusandae vero, quae, ratione consectetur sequi culpa aliquid,
-          rerum molestiae ex sit?
-        </span>
-        <img
-          src='https://images.pexels.com/photos/547115/pexels-photo-547115.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-          alt=''
-          className='rounded-lg'
-        />
+      <div className='posts__container overflow-hidden flex flex-col gap-4'>
+        <span className='text-white text-sm'>{post.text}</span>
+        {post.img && (
+          <div className='container__img rounded-lg max-h-96 max-w-full'>
+            <img
+              src={post.img}
+              alt=''
+              className='rounded-lg object-contain max-h-96 max-w-full'
+            />
+          </div>
+        )}
       </div>
       <div className='posts__likes flex justify-end text-white text-sm text-opacity-75 font-medium items-center gap-2'>
         <span>189</span>
