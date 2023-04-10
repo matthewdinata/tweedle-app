@@ -11,9 +11,13 @@ import { FiHeart } from 'react-icons/fi';
 // hooks
 import { useUserData } from '../../hooks/useUserData';
 
+// services
+import moment from 'moment/moment.js';
+
 export default function Post({ postId }) {
   const [post, setPost] = useState(null);
   const [poster, setPoster] = useState(null);
+  const [relativeTimePosted, setRelativeTimePosted] = useState('');
   const [loading, setLoading] = useState(false);
   const { getUserData } = useUserData();
 
@@ -29,15 +33,15 @@ export default function Post({ postId }) {
     const initiatePost = async () => {
       const postResponse = await getPost(postId);
       setPost(postResponse);
+      setRelativeTimePosted(moment(postResponse.date.toDate()).fromNow());
 
       const posterResponse = await getUserData(postResponse.posterId);
       setPoster(posterResponse);
     };
     initiatePost();
     setLoading(false);
+    console.log(post);
   }, []);
-
-  console.log(post, poster);
 
   return (
     !loading && (
@@ -59,7 +63,9 @@ export default function Post({ postId }) {
                 </span>
               </div>
             </div>
-            <span className='text-white text-opacity-50 text-xs'>4m</span>
+            <span className='text-white text-opacity-50 text-xs'>
+              {relativeTimePosted}
+            </span>
           </div>
         )}
         <div className='posts__container overflow-hidden flex flex-col gap-4'>
