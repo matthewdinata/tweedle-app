@@ -8,7 +8,14 @@ import { useFriendData } from '../../hooks/useFriendData';
 import Post from './Post';
 
 // firebase
-import { query, collection, where, getDocs } from 'firebase/firestore';
+import {
+  query,
+  collection,
+  where,
+  getDocs,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 import { db } from '../../firebase';
 
 export default function Posts() {
@@ -25,6 +32,8 @@ export default function Posts() {
     const q = query(
       collection(db, 'posts'),
       where('posterId', 'in', resultArray),
+      orderBy('date', 'desc'),
+      limit(20),
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {

@@ -70,7 +70,6 @@ export default function PostInput() {
     setImg(null);
     setErr(null);
     setLoading(false);
-    location.reload();
   };
 
   return (
