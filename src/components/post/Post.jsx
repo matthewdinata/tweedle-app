@@ -40,7 +40,6 @@ export default function Post({ postId }) {
     };
     initiatePost();
     setLoading(false);
-    console.log(post);
   }, []);
 
   return (
