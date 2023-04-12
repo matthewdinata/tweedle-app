@@ -1,5 +1,5 @@
 .search > input {
-  @apply pl-16 block bg-violet bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 px-10 font-medium rounded-lg text-white;
+  @apply pl-16 block bg-violet border-0 bg-opacity-20 w-80 h-16 placeholder-white placeholder-opacity-50 mb-6 px-10 font-medium rounded-lg text-white;
 }
 
 .search > input:focus {
