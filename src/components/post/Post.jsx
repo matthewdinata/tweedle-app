@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 // firebase
 import { db } from '../../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 // assets
 import { FiHeart } from 'react-icons/fi';
+import { FaHeart } from 'react-icons/fa';
 
 // hooks
 import { useUserData } from '../../hooks/useUserData';
+import { useAuth } from '../../hooks/useAuth';
 
 // services
 import moment from 'moment/moment.js';
@@ -19,7 +21,10 @@ export default function Post({ postId }) {
   const [poster, setPoster] = useState(null);
   const [relativeTimePosted, setRelativeTimePosted] = useState('');
   const [loading, setLoading] = useState(false);
+  const [likes, setLikes] = useState(null);
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
   const { getUserData } = useUserData();
+  const { currentUid } = useAuth();
 
   // get specific post
   const getPost = async (postId) => {
@@ -27,6 +32,47 @@ export default function Post({ postId }) {
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };
+
+  // get array of uid in likes document
+  const getLikes = async () => {
+    const res = await getDoc(doc(db, 'likes', postId));
+    setLikes(res.data().listOfLikes);
+  };
+
+  const addLike = async () => {
+    setButtonIsDisabled(true);
+    try {
+      await updateDoc(doc(db, 'likes', postId), {
+        noOfLikes: likes.length + 1,
+        listOfLikes: likes.concat([currentUid]),
+      });
+      if (currentUid) {
+        setLikes((prev) => (prev ? [...prev, currentUid] : [currentUid]));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setButtonIsDisabled(false);
+  };
+
+  const removeLike = async () => {
+    setButtonIsDisabled(true);
+    try {
+      await updateDoc(doc(db, 'likes', postId), {
+        noOfLikes: likes.length - 1,
+        listOfLikes: likes.filter((id) => id !== currentUid),
+      });
+      if (currentUid) {
+        setLikes((prev) => prev && prev.filter((uid) => uid !== currentUid));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setButtonIsDisabled(false);
+  };
+
+  // check if user has liked
+  const hasUserLiked = likes?.find((id) => id === currentUid);
 
   useEffect(() => {
     setLoading(true);
@@ -39,6 +85,7 @@ export default function Post({ postId }) {
       setPoster(posterResponse);
     };
     initiatePost();
+    getLikes();
     setLoading(false);
   }, []);
 
@@ -80,8 +127,14 @@ export default function Post({ postId }) {
           )}
         </div>
         <div className='posts__likes flex justify-end text-white text-sm text-opacity-75 font-medium items-center gap-2'>
-          <span>189</span>
-          <FiHeart className='text-xl' />
+          <span>{likes?.length || '0'}</span>
+          <button
+            className='text-xl'
+            onClick={hasUserLiked ? removeLike : addLike}
+            disabled={buttonIsDisabled}
+          >
+            {hasUserLiked ? <FaHeart className='text-red' /> : <FiHeart />}
+          </button>
         </div>
       </div>
     )
