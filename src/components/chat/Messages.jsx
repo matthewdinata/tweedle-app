@@ -5,10 +5,13 @@ import { useChat } from '../../hooks/useChat';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
 import ChatBoxUser from './ChatBoxUser';
+import ChatBoxNonUser from './ChatBoxNonUser';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Messages() {
   const { chatId } = useChat();
   const [messages, setMessages] = useState([]);
+  const { currentUid } = useAuth();
 
   // fetching messages from firebase
   useEffect(() => {
@@ -27,13 +30,27 @@ export default function Messages() {
 
   return (
     <div>
-      {messages.map((message) => (
-        <ChatBoxUser
-          message={message.text}
-          imgSrc={message.img}
-          key={message.id}
-        />
-      ))}
+      {messages.map((message) => {
+        if (message.senderId == currentUid) {
+          return (
+            <ChatBoxUser
+              message={message.text}
+              imgSrc={message.img}
+              date={message.date}
+              key={message.id}
+            />
+          );
+        } else {
+          return (
+            <ChatBoxNonUser
+              message={message.text}
+              imgSrc={message.img}
+              date={message.date}
+              key={message.id}
+            />
+          );
+        }
+      })}
     </div>
   );
 }
