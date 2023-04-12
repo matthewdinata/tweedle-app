@@ -1,18 +1,39 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useRef } from 'react';
+import 'firebase/firestore';
 
-export default function ChatBoxNonUser() {
+// eslint-disable-next-line react/prop-types
+export default function ChatBoxNonUser({ message, imgSrc, date }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [message]);
+
   return (
-    <div className='flex items-start max-w-md'>
-      <div className='flex flex-col items-center gap-y-1 px-8'>
-        <img
-          src='https://randomuser.me/api/portraits/women/81.jpg'
-          className='rounded-full w-10 h-10'
-        />
-        <p className='text-white opacity-50 text-xs'>15.36</p>
+    <div
+      ref={ref}
+      className='flex items-start max-w-md mb-2'
+    >
+      <div className='flex flex-col items-start gap-y-1 px-8'>
+        {message && (
+          <p className='text-white text-sm bg-purple bg-opacity-40 p-3 rounded-lg max-w-md rounded-br-none'>
+            {message}
+          </p>
+        )}
+        {!message && (
+          <img
+            className='rounded-md'
+            width={'60%'}
+            src={imgSrc}
+          ></img>
+        )}
+        <p className='text-white opacity-50 text-xs'>
+          {date
+            .toDate()
+            .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </p>
       </div>
-      <p className='text-white text-sm border border-white border-opacity-40 p-3 rounded-lg rounded-bl-none'>
-        Hello, how&apos;s your day?
-      </p>
     </div>
   );
 }

@@ -1,21 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function UserChat() {
+export default function UserChat({
+  imgSrc,
+  displayName,
+  lastMessage,
+  handleClick,
+}) {
   return (
-    <div className='flex flex-col items-center'>
+    <div
+      className='flex flex-col items-center'
+      onClick={handleClick}
+    >
       <div className='flex gap-x-3 w-full bg-black-100 hover:bg-black-200 hover:bg-opacity-30 py-5 px-5'>
         <img
-          src='https://randomuser.me/api/portraits/women/81.jpg'
+          src={imgSrc}
           className='rounded-full w-12 h-12'
+          referrerPolicy='no-referrer'
         />
-        <div className='flex flex-col'>
-          <p className='text-white'>Gabrielle Nicole</p>
-          <p className='text-white opacity-50 text-sm'>
-            Hello, how is your day?
-          </p>
+        <div className='flex flex-col justify-center ml-2'>
+          <p className='text-white'>{displayName}</p>
+          {lastMessage && (
+            <p className='text-white opacity-50 text-sm'>{lastMessage}</p>
+          )}
         </div>
       </div>
       <hr className='w-[300px] h-px bg-white border-0 opacity-10'></hr>
     </div>
   );
 }
+
+UserChat.propTypes = {
+  displayName: PropTypes.string,
+  imgSrc: PropTypes.string,
+  lastMessage: PropTypes.any,
+  handleClick: PropTypes.func,
+};

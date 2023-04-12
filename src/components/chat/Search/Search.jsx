@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
+
+// styles
+import './Search.css';
 
 // components
-import UserList from './UserList';
+import UserList from '../UserList';
 
 // firebase
 import {
@@ -18,7 +21,7 @@ import {
   updateDoc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../../firebase';
 
 export default function Search() {
   const [usernameSearched, setUsernameSearched] = useState();
@@ -76,13 +79,13 @@ export default function Search() {
         // add user to current user's chat list
         console.log(currentUserInfo);
         await updateDoc(doc(db, 'userChats', currentUid), {
-          [combinedId + '.userId']: currentUid,
+          [combinedId + '.userId']: userSearched.uid,
           [combinedId + '.date']: serverTimestamp(),
         });
 
         // add current user to user's chat list
         await updateDoc(doc(db, 'userChats', userSearched.uid), {
-          [combinedId + '.userId']: userSearched.uid,
+          [combinedId + '.userId']: currentUid,
           [combinedId + '.date']: serverTimestamp(),
         });
       }
@@ -96,7 +99,7 @@ export default function Search() {
 
   return (
     <>
-      <div>
+      <div className='search'>
         <label className='relative block'>
           <span className='absolute inset-y-0 left-0 flex items-center pl-6 pt-8'>
             <FiSearch
@@ -109,10 +112,10 @@ export default function Search() {
         <input
           type='text'
           placeholder='Search chats..'
-          className='pl-16 font-normal'
+          className='search-input'
           onKeyDown={handleKey}
           onChange={(e) => setUsernameSearched(e.target.value.trim())}
-          value={usernameSearched}
+          value={usernameSearched || ''}
         />
       </div>
       {loading && (

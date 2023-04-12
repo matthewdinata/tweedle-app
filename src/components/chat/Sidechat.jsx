@@ -1,12 +1,13 @@
 import React from 'react';
-import Search from './Search';
+import Search from './search';
 import Chats from './Chats';
 
-export default function SideChat() {
+// eslint-disable-next-line react/prop-types
+export default function SideChat({ setLoading }) {
   return (
     <div className='flex flex-col h-full'>
       <Search />
-      <Chats />
+      <Chats setLoading={setLoading} />
     </div>
   );
 }
