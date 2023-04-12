@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import Loading from './Loading';
 
 export default function PersistAuth() {
   const [loading, setLoading] = useState(true);
@@ -19,5 +20,5 @@ export default function PersistAuth() {
     });
     unsub();
   }, []);
-  return loading ? <p className='loading-message'>LOADING...</p> : <Outlet />;
+  return loading ? <Loading /> : <Outlet />;
 }
