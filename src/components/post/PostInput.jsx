@@ -22,10 +22,16 @@ export default function PostInput() {
   const [loading, setLoading] = useState(false);
   const { currentUserInfo, currentUid } = useAuth();
 
+  // handle reload after posting
+  const handleReload = async () => {
+    await location.reload();
+  };
+
   // update Firestore Database when user posts
   const handlePost = async () => {
     setLoading(true);
     const postId = uuid();
+
     try {
       if (img) {
         const storageRef = ref(storage, postId);
@@ -35,20 +41,22 @@ export default function PostInput() {
         await uploadTask;
 
         // get the URL for the uploaded file
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await setDoc(doc(db, 'posts', postId), {
-            id: postId,
-            text,
-            posterId: currentUid,
-            date: Timestamp.now(),
-            img: downloadURL,
-          });
-          // also create a document for likes
-          await setDoc(doc(db, 'likes', postId), {
-            noOfLikes: 0,
-            listOfLikes: [],
-          });
-        });
+        await getDownloadURL(uploadTask.snapshot.ref).then(
+          async (downloadURL) => {
+            await setDoc(doc(db, 'posts', postId), {
+              id: postId,
+              text,
+              posterId: currentUid,
+              date: Timestamp.now(),
+              img: downloadURL,
+            });
+            // also create a document for likes
+            await setDoc(doc(db, 'likes', postId), {
+              noOfLikes: 0,
+              listOfLikes: [],
+            });
+          },
+        );
       } else {
         await setDoc(doc(db, 'posts', postId), {
           id: postId,
@@ -70,6 +78,7 @@ export default function PostInput() {
     setImg(null);
     setErr(null);
     setLoading(false);
+    handleReload();
   };
 
   return (
